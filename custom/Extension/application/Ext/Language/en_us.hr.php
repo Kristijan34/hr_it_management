@@ -39,6 +39,9 @@
  */
 
 $app_list_strings['moduleList']['hr_Employee_absences'] = 'Employee Absences';
+$app_list_strings['moduleList']['hr_Employee_benefits'] = 'Employee Benefits';
+$app_list_strings['moduleList']['hr_Performance_management'] = 'Performance Management';
 $app_list_strings['moduleList']['hr_Position_management'] = 'Position management';
 $app_list_strings['moduleList']['hr_Regions'] = 'Regions';
+$app_list_strings['moduleList']['hr_Reports'] = 'Reports';
 $app_list_strings['moduleList']['hr_Stores'] = 'Stores';
