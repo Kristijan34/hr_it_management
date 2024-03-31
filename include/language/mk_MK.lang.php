@@ -104,6 +104,7 @@ $app_list_strings = array(
         'Newsletters' => 'Билтени',
         'SugarFeed' => 'SuiteCRM фидови',
         'SugarFavorites' => 'SuiteCRM Омилени',
+        'hr_Employee_absences' => 'Отсуства',
 
         'OAuthKeys' => 'OAuth кориснички клучеви',
         'OAuthTokens' => 'ОАuth токени',
