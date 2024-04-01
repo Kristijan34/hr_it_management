@@ -3,6 +3,9 @@
 
  
  //WARNING: The contents of this file are auto-generated
+$beanList['hr_Approvals'] = 'hr_Approvals';
+$beanFiles['hr_Approvals'] = 'modules/hr_Approvals/hr_Approvals.php';
+$moduleList[] = 'hr_Approvals';
 $beanList['hr_Employee_absences'] = 'hr_Employee_absences';
 $beanFiles['hr_Employee_absences'] = 'modules/hr_Employee_absences/hr_Employee_absences.php';
 $moduleList[] = 'hr_Employee_absences';

@@ -41,6 +41,7 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
+$app_list_strings['moduleList']['hr_Approvals'] = 'Approvals';
 $app_list_strings['moduleList']['hr_Employee_absences'] = 'Employee Absences';
 $app_list_strings['moduleList']['hr_Employee_benefits'] = 'Employee Benefits';
 $app_list_strings['moduleList']['hr_Performance_management'] = 'Performance Management';
@@ -48,4 +49,10 @@ $app_list_strings['moduleList']['hr_Position_management'] = 'Position management
 $app_list_strings['moduleList']['hr_Regions'] = 'Regions';
 $app_list_strings['moduleList']['hr_Reports'] = 'Reports';
 $app_list_strings['moduleList']['hr_Stores'] = 'Stores';
+$app_list_strings['approval_status_dom']['new'] = 'New';
+$app_list_strings['approval_status_dom']['sent_for_approval'] = 'Sent for approval';
+$app_list_strings['approval_status_dom']['pending'] = 'Pending approval';
+$app_list_strings['approval_status_dom']['approved'] = 'Approved';
+$app_list_strings['approval_status_dom']['rejected'] = 'Rejected';
+$app_list_strings['approval_status_dom']['in_review'] = 'In review';
 
