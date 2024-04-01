@@ -1,4 +1,8 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -38,48 +42,36 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-$module_name = 'hr_Approvals';
-$viewdefs[$module_name]['EditView'] = array(
-    'templateMeta' => array(
-        'maxColumns' => '2',
-        'widths' => array(
-            array('label' => '10', 'field' => '30'),
-            array('label' => '10', 'field' => '30')
-        ),
-    ),
+/*********************************************************************************
+ * Description: This file is used to override the default Meta-data EditView behavior
+ * to provide customization specific to the Calls module.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+class hr_ApprovalsViewDetail extends ViewDetail
+{
+    /**
+     * @see SugarView::preDisplay()
+     */
+    public function display()
+    {
+        global $mod_strings, $app_strings;
+//        unset($this->dv->defs['templateMeta']['form']['buttons'][0]);
+        parent::display();
+    }
+    public function preDisplay()
+    {
 
-    'panels' => array(
-        'default' => array(
-            0 => array(
-                0 => array(
-                    'name' => 'name',
-                    'label' => 'LBL_NAME',
+        global $app_list_strings;
+        $bean = BeanFactory::getBean($this->bean->entity_type, $this->bean->entity_id);
+        //$GLOBALS['log']->fatal('bean ' . print_r($bean,true));
 
-                ),
-                1 => array(
-                    'name' => 'approver_name',
-                    'label' => 'LBL_APPROVER_ID',
-                ),
-            ),
-            1 => array(
-                0 => array(
-                    'name' => 'entity_type',
-                    'label' => 'LBL_ENTITY_TYPE',
-                ),
-                1 => array(
-                    'name' => 'status',
-                    'label' => 'LBL_STATUS',
-                ),
-            ),
-            2 => array(
-                0 => array(
-                    'name' => 'entity_id',
-                    'label' => 'LBL_ENTITY_ID'
-                )
-            )
+        $this->bean->entity_name = $bean->name;
+        $this->bean->entity_type_name = $app_list_strings['moduleList'][$this->bean->entity_type];
 
-        ),
 
-    ),
 
-);
+        parent::preDisplay();
+    }
+}

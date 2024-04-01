@@ -60,25 +60,31 @@ $viewdefs[$module_name]['DetailView'] = array(
         array(
             'default' =>
                 array(
-                    array(
+                    0 => array(
                         'name',
-                        'assigned_user_name',
+                        'approver_name',
                     ),
-                    array(
-                        array(
-                            'name' => 'date_entered',
-                            'customCode' => '{$fields.date_entered.value} {$APP.LBL_BY} {$fields.created_by_name.value}',
-                            'label' => 'LBL_DATE_ENTERED',
+                    1 => array(
+                        0=> array(
+                            'name' => 'entity_type',
+                            'customCode' => '{$fields.entity_type_name.value}',
                         ),
-                        array(
-                            'name' => 'date_modified',
-                            'customCode' => '{$fields.date_modified.value} {$APP.LBL_BY} {$fields.modified_by_name.value}',
-                            'label' => 'LBL_DATE_MODIFIED',
+                        1=> array(
+                            'name' => 'entity_name',
+                            'customCode' => '<a href="index.php?module={$fields.entity_type.value}&action=DetailView&record={$fields.entity_id.value}" target="_blank">{$fields.entity_name.value}</a>',
                         ),
                     ),
-
-                    array(
-                        'description',
+                    2 => array(
+                        'status',
+                        '',
+                    ),
+                    3 => array(
+                        'created_by_name',
+                        'date_entered',
+                    ),
+                    4 => array(
+                        'modified_by_name',
+                        'date_modified',
                     ),
                 )
         )

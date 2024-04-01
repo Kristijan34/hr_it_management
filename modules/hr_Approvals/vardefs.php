@@ -44,6 +44,20 @@ $dictionary['hr_Approvals'] = array(
     'inline_edit' => true,
     'duplicate_merge' => true,
     'fields' => array (
+        'name' => array(
+            'required' => true,
+            'name' => 'name',
+            'vname' => 'LBL_NAME',
+            'type' => 'varchar',
+            'massupdate' => 0,
+            'comments' => '',
+            'help' => '',
+            'importable' => 'true',
+            'duplicate_merge' => 'disabled',
+            'duplicate_merge_dom_value' => '0',
+            'audited' => false,
+            'reportable' => true,
+        ),
   'status' => 
   array (
     'required' => false,
@@ -69,7 +83,20 @@ $dictionary['hr_Approvals'] = array(
     'studio' => 'visible',
     'dependency' => false,
   ),
-  'entity_type' => 
+
+        'entity_type_name' => array(
+            'name' => 'entity_type_name',
+            'type' => 'varchar',
+            'vname' => 'LBL_ENTITY_TYPE',
+            'source' => 'non-db',
+        ),
+        'entity_name' => array(
+            'name' => 'parent_name',
+            'type' => 'varchar',
+            'vname' => 'LBL_ENTITY_ID',
+            'source' => 'non-db',
+        ),
+  'entity_type' =>
   array (
     'required' => false,
     'name' => 'entity_type',
@@ -90,7 +117,7 @@ $dictionary['hr_Approvals'] = array(
     'len' => '255',
     'size' => '20',
   ),
-  'entity_id' => 
+  'entity_id' =>
   array (
     'required' => false,
     'name' => 'entity_id',
@@ -111,29 +138,50 @@ $dictionary['hr_Approvals'] = array(
     'len' => '255',
     'size' => '20',
   ),
-  'approver_id' => 
-  array (
-    'required' => false,
-    'name' => 'approver_id',
-    'vname' => 'LBL_APPROVER_ID',
-    'type' => 'varchar',
-    'massupdate' => 0,
-    'no_default' => false,
-    'comments' => '',
-    'help' => '',
-    'importable' => 'true',
-    'duplicate_merge' => 'disabled',
-    'duplicate_merge_dom_value' => '0',
-    'audited' => false,
-    'inline_edit' => true,
-    'reportable' => true,
-    'unified_search' => false,
-    'merge_filter' => 'disabled',
-    'len' => '255',
-    'size' => '20',
-  ),
+
+  //relation for approver id
+        'approver_name'=>
+            array(
+                'name'=> 'approver_name',
+                'ext2' => 'users',
+                'module' => 'Employees',
+                'id_name'=>'approver_id',
+                'vname'=>'LBL_APPROVER_ID',
+                'type'=>'relate',
+                'source'=>'non-db',
+                'options'=> 'moduleList',
+                'audited' => true,
+                'required'=> true,
+            ),
+        'approver_id' =>
+            array(
+                'name' => 'approver_id',
+                'vname' => 'LBL_APPROVER_ID',
+                'type' => 'varchar',
+                'required' => false,
+                'reportable' => true,
+                'importable' => 'true',
+                'audited' => true,
+            ),
+        'approver_employees' => array(
+            'name' => 'approver_employees',
+            'type' => 'link',
+            'vname' => 'LBL_EMPLOYEE',
+            'relationship' => 'approver_employees',
+            'source' => 'non-db',
+        ),
+        // end relation for approver
 ),
     'relationships' => array (
+        'approver_employees' => array(
+            'lhs_module' => 'hr_Approvals',
+            'lhs_table' => 'hr_approvals',
+            'lhs_key' => 'approver_id',
+            'rhs_module' => 'Employees',
+            'rhs_table' => 'users',
+            'rhs_key' => 'id',
+            'relationship_type' => 'one-to-many',
+        ),
 ),
     'optimistic_locking' => true,
     'unified_search' => true,
