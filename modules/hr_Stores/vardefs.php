@@ -44,8 +44,57 @@ $dictionary['hr_Stores'] = array(
     'inline_edit' => true,
     'duplicate_merge' => true,
     'fields' => array (
+        //start regions relate
+        'region_id' =>
+            array (
+                'required' => false,
+                'name' => 'region_id',
+                'vname' => 'LBL_REGION',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'no_default' => false,
+                'audited' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => '255',
+                'size' => '20',
+            ),
+        'region_name' =>
+            array(
+                'required' => true,
+                'name' => 'region_name',
+                'rname' => 'name',
+                'id_name' => 'region_id',
+                'vname' => 'LBL_REGION',
+                'type' => 'relate',
+                'link' => 'store_to_region',
+                'table' => 'hr_regions',
+                'isnull' => 'true',
+                'module' => 'hr_Regions',
+                'source' => 'non-db',
+            ),
+        'store_to_region' =>
+            array(
+                'name' => 'store_to_region',
+                'type' => 'link',
+                'vname' => 'LBL_REGION',
+                'relationship' => 'stores_to_region',
+                'source' => 'non-db',
+            ),
+        //end regions relate
 ),
     'relationships' => array (
+        'stores_to_region' =>
+            array (
+                'lhs_module' => 'hr_Stores',
+                'lhs_table' => 'hr_stores',
+                'lhs_key' => 'region_id',
+                'rhs_module' => 'hr_Regions',
+                'rhs_table' => 'hr_regions',
+                'rhs_key' => 'id',
+                'relationship_type' => 'one-to-many',
+            ),
+
 ),
     'optimistic_locking' => true,
     'unified_search' => true,

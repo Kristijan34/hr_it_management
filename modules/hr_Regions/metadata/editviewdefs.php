@@ -53,7 +53,6 @@ $viewdefs[$module_name]['EditView'] = array(
 
             array(
                 'name',
-                'assigned_user_name',
             ),
 
             array(

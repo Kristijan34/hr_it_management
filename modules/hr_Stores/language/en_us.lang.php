@@ -74,4 +74,5 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_STORES_SUBPANEL_TITLE' => 'Stores',
   'LBL_NEW_FORM_TITLE' => 'New Stores',
+    'LBL_REGION' => 'Region',
 );

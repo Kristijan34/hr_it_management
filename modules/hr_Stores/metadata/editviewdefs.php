@@ -51,14 +51,24 @@ $viewdefs[$module_name]['EditView'] = array(
     'panels' => array(
         'default' => array(
 
-            array(
-                'name',
-                'assigned_user_name',
+            0 => array(
+                0 => array(
+                    'name' => 'name',
+                    'label' => 'LBL_NAME',
+                ),
+                1 => array(
+                    'name' => 'region_name',
+                    'label' => 'LBL_REGION',
+                )
             ),
-
-            array(
-                'description',
-            ),
+            1 => array(
+                0 => array(
+                    'name' => 'description',
+                    'label' => 'LBL_DESCRIPTION',
+                ),
+                1 => array(
+                )
+            )
         ),
 
     ),
