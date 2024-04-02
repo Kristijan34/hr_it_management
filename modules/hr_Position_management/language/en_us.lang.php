@@ -50,7 +50,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Created By',
   'LBL_DESCRIPTION' => 'Description',
   'LBL_DELETED' => 'Deleted',
-  'LBL_NAME' => 'Name',
+  'LBL_NAME' => 'User',
   'LBL_CREATED_USER' => 'Created by User',
   'LBL_MODIFIED_USER' => 'Modified by User',
   'LBL_LIST_NAME' => 'Name',
@@ -74,4 +74,8 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_POSITION_MANAGEMENT_SUBPANEL_TITLE' => 'Position management',
   'LBL_NEW_FORM_TITLE' => 'New Position management',
+    'LBL_REGION' => 'Region',
+    'LBL_STORE' => 'Store',
+    'LBL_ROLE' => 'Role',
+    'LBL_APPROVAL' => 'Approver role'
 );

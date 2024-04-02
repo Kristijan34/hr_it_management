@@ -6032,3 +6032,27 @@ function clearTplCache() {
     $rac->clearTpls();
     $rac->clearThemeCache();
 }
+
+function getRegions(){
+    global $db;
+    $sql = "SELECT id, name FROM hr_regions where deleted = 0 order by name ASC";
+    $regions = array('' => '');
+    $result = $db->query($sql);
+    while ($row = $db->fetchByAssoc($result)){
+        $regions[$row['id']] = $row['name'];
+    }
+
+    return $regions;
+}
+
+function getStores(){
+    global $db;
+    $sql = "SELECT id, name FROM hr_stores where deleted = 0 order by name ASC";
+    $stores = array('' => '');
+    $result = $db->query($sql);
+    while ($row = $db->fetchByAssoc($result)){
+        $stores[$row['id']] = $row['name'];
+    }
+
+    return $stores;
+}

@@ -44,18 +44,41 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 $module_name = 'hr_Position_management';
 $listViewDefs[$module_name] = array(
-    'NAME' => array(
+    'USER_NAME' => array(
         'width' => '32',
         'label' => 'LBL_NAME',
         'default' => true,
-        'link' => true
+        'link' => true,
+        'customCode' => '<a href="index.php?module=hr_Position_management&action=DetailView&record={$ID}">{$USER_NAME}</a>',
     ),
-    'ASSIGNED_USER_NAME' => array(
-        'width' => '9',
-        'label' => 'LBL_ASSIGNED_TO_NAME',
-        'module' => 'Employees',
-        'id' => 'ASSIGNED_USER_ID',
-        'default' => true
+    'REGION_ID' => array(
+        'width' => '32',
+        'label' => 'LBL_REGION',
+        'default' => true,
+        'link' => true,
+        'customCode' => '<a href="index.php?module=hr_Regions&action=DetailView&record={$REGION_ID}">{$REGION_NAME}</a>',
     ),
+    'STORE_ID' => array(
+        'width' => '32',
+        'label' => 'LBL_STORE',
+        'default' => true,
+        'link' => true,
+        'customCode' => '<a href="index.php?module=hr_Storess&action=DetailView&record={$STORE_ID}">{$STORE_NAME}</a>',
+    ),
+    'ROLE_ID' => array(
+        'width' => '32',
+        'label' => 'LBL_ROLE',
+        'default' => true,
+        'link' => true,
+        'customCode' => '<a href="index.php?module=ACLRoles&action=DetailView&record={$ROLE_ID}">{$ROLE_NAME}</a>',
+    ),
+    'APPROVAL_ROLE_ID' => array(
+        'width' => '32',
+        'label' => 'LBL_APPROVAL',
+        'default' => true,
+        'link' => true,
+        'customCode' => '<a href="index.php?module=ACLRoles&action=DetailView&record={$APPROVAL_ROLE_ID}">{$APPROVAL_NAME}</a>',
+    ),
+    //approval_role_id
 
 );

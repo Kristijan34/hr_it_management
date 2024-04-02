@@ -49,6 +49,10 @@ class hr_Position_management extends Basic
 
     public $id;
     public $name;
+    public $store_id;
+    public $region_id;
+    public $role_id;
+    public $approval_role_id;
     public $date_entered;
     public $date_modified;
     public $modified_user_id;
@@ -73,6 +77,62 @@ class hr_Position_management extends Basic
         }
 
         return false;
+    }
+
+    function fill_in_additional_list_fields() {
+        parent::fill_in_additional_list_fields();
+        $this->region_name = $this->getRegionName($this->region_id);
+        $this->store_name = $this->getStoreName($this->store_id);
+        $this->role_name = $this->getRoleName($this->role_id);
+        $this->approval_name = $this->getApprovalName($this->approval_role_id);
+    }
+
+    function getRoleName($role_id){
+        global $db;
+        $sql = "SELECT name FROM acl_roles WHERE id = '{$role_id}'";
+        $res= $db->query($sql);
+        $row = $db->fetchByAssoc($res);
+        return $row['name'];
+    }
+    function getApprovalName($role_id){
+        global $db;
+        $sql = "SELECT name FROM acl_roles WHERE id = '{$role_id}'";
+        $res= $db->query($sql);
+        $row = $db->fetchByAssoc($res);
+        return $row['name'];
+    }
+    function getRegionName($region_id){
+        global $db;
+        $sql = "SELECT name FROM hr_regions WHERE id = '{$region_id}'";
+        $res= $db->query($sql);
+        $row = $db->fetchByAssoc($res);
+        return $row['name'];
+    }
+
+    function getStoreName($store_id){
+        global $db;
+        $sql = "SELECT name FROM hr_stores WHERE id = '{$store_id}'";
+        $res= $db->query($sql);
+        $row = $db->fetchByAssoc($res);
+        return $row['name'];
+    }
+
+    function getStoresByRegion()
+    {
+        global $db;
+        $stores_by_region = array();
+
+        $sql = "SELECT st.id, st.name, st.region_id
+                FROM hr_stores st 
+                JOIN hr_regions reg ON st.region_id = reg.id WHERE st.deleted = 0 AND reg.deleted = 0
+                ORDER BY st.name ASC";
+        $result = $db->query($sql);
+        while ($row = $db->fetchByAssoc($result)){
+            $stores_by_region[$row['region_id']][$row['id']]['name'] = $row['name'];
+        }
+
+        return $stores_by_region;
+
     }
 	
 }

@@ -46,19 +46,42 @@ $viewdefs[$module_name]['EditView'] = array(
             array('label' => '10', 'field' => '30'),
             array('label' => '10', 'field' => '30')
         ),
+        'includes' => array(
+            0 => array('file' => 'modules/hr_Position_management/javascript/edit.js')
+        ),
     ),
 
     'panels' => array(
         'default' => array(
-
-            array(
-                'name',
-                'assigned_user_name',
+            0 => array(
+                0 => array(
+                    'name' => 'user_name',
+                    'label' => 'LBL_NAME'
+                ),
+                1 => array(
+                    'name' => 'role_name',
+                    'label' => 'LBL_ROLE'
+                )
             ),
-
-            array(
-                'description',
+            1 => array(
+                0 => array(
+                    'name' => 'region_id',
+                    'label' => 'LBL_REGION'
+                ),
+                1 => array(
+                    'name' => 'store_id',
+                    'label' => 'LBL_STORE'
+                )
             ),
+            2 => array(
+                0 => array(
+                    'name' => 'approval_name',
+                    'label' => 'LBL_APPROVAL'
+                ),
+                1 => array(
+                )
+            )
+
         ),
 
     ),

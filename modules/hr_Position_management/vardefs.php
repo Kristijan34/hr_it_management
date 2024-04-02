@@ -44,8 +44,191 @@ $dictionary['hr_Position_management'] = array(
     'inline_edit' => true,
     'duplicate_merge' => true,
     'fields' => array (
+        //start approval relate
+        'approval_role_id' =>
+            array (
+                'required' => false,
+                'name' => 'approval_role_id',
+                'vname' => 'LBL_APPROVAL',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'no_default' => false,
+                'audited' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => '255',
+                'size' => '20',
+            ),
+        'approval_name' =>
+            array(
+                'required' => true,
+                'name' => 'approval_name',
+                'rname' => 'name',
+                'id_name' => 'approval_role_id',
+                'vname' => 'LBL_APPROVAL',
+                'type' => 'relate',
+                'link' => 'approval_role',
+                'table' => 'acl_roles',
+                'isnull' => 'true',
+                'module' => 'ACLRoles',
+                'source' => 'non-db',
+            ),
+        'approval_role' =>
+            array(
+                'name' => 'approval_role',
+                'type' => 'link',
+                'vname' => 'LBL_APPROVAL',
+                'relationship' => 'approval_roles',
+                'source' => 'non-db',
+            ),
+        //end approval relate
+        //start user relate
+        'user_id' =>
+            array (
+                'required' => false,
+                'name' => 'user_id',
+                'vname' => 'LBL_NAME',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'no_default' => false,
+                'audited' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => '255',
+                'size' => '20',
+            ),
+        'user_name' =>
+            array(
+                'required' => true,
+                'name' => 'user_name',
+                'rname' => 'name',
+                'id_name' => 'user_id',
+                'vname' => 'LBL_NAME',
+                'type' => 'relate',
+                'link' => 'position_user',
+                'table' => 'users',
+                'isnull' => 'true',
+                'module' => 'Users',
+                'source' => 'non-db',
+            ),
+        'position_user' =>
+            array(
+                'name' => 'position_user',
+                'type' => 'link',
+                'vname' => 'LBL_NAME',
+                'relationship' => 'position_users',
+                'source' => 'non-db',
+            ),
+        //end user relate
+        'region_id' =>
+            array(
+                'name' => 'region_id',
+                'type' => 'enum',
+                'vname' => 'LBL_REGION',
+                'function' => 'getRegions',
+                'audited' => true,
+                'required' => true,
+                'importable' => true
+            ),
+        'region_name' =>
+            array (
+                'required' => false,
+                'name' => 'region_name',
+                'vname' => 'LBL_REGION',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'source' => 'non-db'
+            ),
+        'store_id' =>
+            array(
+                'name' => 'store_id',
+                'type' => 'enum',
+                'vname' => 'LBL_STORE',
+                'function' => 'getStores',
+                'audited' => true,
+                'required' => true,
+                'importable' => true
+            ),
+        'store_name' =>
+            array (
+                'required' => false,
+                'name' => 'store_name',
+                'vname' => 'LBL_STORE',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'source' => 'non-db'
+            ),
+
+        //start role relate
+        'role_id' =>
+            array (
+                'required' => false,
+                'name' => 'role_id',
+                'vname' => 'LBL_ROLE',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'no_default' => false,
+                'audited' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => '255',
+                'size' => '20',
+            ),
+        'role_name' =>
+            array(
+                'required' => true,
+                'name' => 'role_name',
+                'rname' => 'name',
+                'id_name' => 'role_id',
+                'vname' => 'LBL_ROLE',
+                'type' => 'relate',
+                'link' => 'user_role',
+                'table' => 'acl_roles',
+                'isnull' => 'true',
+                'module' => 'ACLRoles',
+                'source' => 'non-db',
+            ),
+        'user_role' =>
+            array(
+                'name' => 'position_user',
+                'type' => 'link',
+                'vname' => 'LBL_NAME',
+                'relationship' => 'users_roles',
+                'source' => 'non-db',
+            ),
+        //end role relate
 ),
     'relationships' => array (
+        'position_users' =>
+            array (
+                'lhs_module' => 'hr_Position_management',
+                'lhs_table' => 'hr_position_management',
+                'lhs_key' => 'user_id',
+                'rhs_module' => 'Users',
+                'rhs_table' => 'users',
+                'rhs_key' => 'id',
+                'relationship_type' => 'one-to-one',
+            ),
+        'users_roles' =>
+            array (
+                'lhs_module' => 'hr_Position_management',
+                'lhs_table' => 'hr_position_management',
+                'lhs_key' => 'role_id',
+                'rhs_module' => 'ACLRoles',
+                'rhs_table' => 'acl_roles',
+                'rhs_key' => 'id',
+                'relationship_type' => 'one-to-one',
+            ),
+        'approval_roles' =>
+            array (
+                'lhs_module' => 'hr_Position_management',
+                'lhs_table' => 'hr_position_management',
+                'lhs_key' => 'approval_role_id',
+                'rhs_module' => 'ACLRoles',
+                'rhs_table' => 'acl_roles',
+                'rhs_key' => 'id',
+                'relationship_type' => 'one-to-one',
+            ),
 ),
     'optimistic_locking' => true,
     'unified_search' => true,
