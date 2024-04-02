@@ -6025,3 +6025,10 @@ function get_id_validation_pattern(): string {
 
     return $pattern;
 }
+
+function clearTplCache() {
+    require_once('modules/Administration/QuickRepairAndRebuild.php');
+    $rac = new RepairAndClear();
+    $rac->clearTpls();
+    $rac->clearThemeCache();
+}

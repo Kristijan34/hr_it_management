@@ -1,4 +1,8 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -37,46 +41,40 @@
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
-$mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_SECURITYGROUPS' => 'Security Groups',
-  'LBL_SECURITYGROUPS_SUBPANEL_TITLE' => 'Security Groups',
-  'LBL_ID' => 'ID',
-  'LBL_DATE_ENTERED' => 'Date Created',
-  'LBL_DATE_MODIFIED' => 'Date Modified',
-  'LBL_MODIFIED' => 'Modified By',
-  'LBL_MODIFIED_NAME' => 'Modified By Name',
-  'LBL_CREATED' => 'Created By',
-  'LBL_DESCRIPTION' => 'Description',
-  'LBL_DELETED' => 'Deleted',
-  'LBL_NAME' => 'Name',
-  'LBL_CREATED_USER' => 'Created by User',
-  'LBL_MODIFIED_USER' => 'Modified by User',
-  'LBL_LIST_NAME' => 'Name',
-  'LBL_EDIT_BUTTON' => 'Edit',
-  'LBL_REMOVE' => 'Remove',
-  'LBL_ASCENDING' => 'Ascending',
-  'LBL_DESCENDING' => 'Descending',
-  'LBL_OPT_IN' => 'Opt In',
-  'LBL_OPT_IN_PENDING_EMAIL_NOT_SENT' => 'Pending Confirm opt in, Confirm opt in not sent',
-  'LBL_OPT_IN_PENDING_EMAIL_SENT' => 'Pending Confirm opt in, Confirm opt in sent',
-  'LBL_OPT_IN_CONFIRMED' => 'Opted in',
-  'LBL_LIST_FORM_TITLE' => 'Employee Absences List',
-  'LBL_MODULE_NAME' => 'Employee Absences',
-  'LBL_MODULE_TITLE' => 'Employee Absences',
-  'LBL_HOMEPAGE_TITLE' => 'My Employee Absences',
-  'LNK_NEW_RECORD' => 'Create Employee Absences',
-  'LNK_LIST' => 'View Employee Absences',
-  'LNK_IMPORT_HR_EMPLOYEE_ABSENCES' => 'Import Employee Absences',
-  'LBL_SEARCH_FORM_TITLE' => 'Search Employee Absences',
-  'LBL_HISTORY_SUBPANEL_TITLE' => 'View History',
-  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
-  'LBL_HR_EMPLOYEE_ABSENCES_SUBPANEL_TITLE' => 'Employee Absences',
-  'LBL_NEW_FORM_TITLE' => 'New Employee Absences',
-    'LBL_ABSENCE_TYPE' => 'Absence type',
-    'LBL_FROM_DATE' => 'From date',
-    'LBL_TO_DATE' => 'To date',
-    'LBL_STATUS' => 'Status',
-    'LBL_SEND_FOR_APPROVALS' => 'Send for approval',
-);
+
+/*********************************************************************************
+ * Description: This file is used to override the default Meta-data EditView behavior
+ * to provide customization specific to the Calls module.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+class hr_Employee_absencesViewDetail extends ViewDetail {
+
+    /**
+     * @see SugarView::display()
+     */
+    public function display() {
+        global $current_user;
+
+
+//send for approval
+        $this->dv->defs['templateMeta']['form']['buttons'] = array();
+        if ($this->bean->status == "new" ) {
+            if($this->bean->created_by == $current_user->id){
+                $this->dv->defs['templateMeta']['form']['buttons'][] = array(
+                    'customCode' => '<input type="button" class="button" style="cursor: pointer;" id="send_for_approval" value="{$MOD.LBL_SEND_FOR_APPROVALS}">'
+                );
+
+                $this->dv->defs['templateMeta']['form']['buttons'][] = 'EDIT';
+                $this->dv->defs['templateMeta']['form']['buttons'][] = 'DELETE';
+            }
+        }
+//
+//
+//        if($this->bean->correction_status == 'send_for_approval'){
+//            $this->bean->isCorrectionApproved($this->bean->id);
+//        }
+        parent::display();
+    }
+}

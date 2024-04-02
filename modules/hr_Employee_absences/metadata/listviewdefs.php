@@ -44,18 +44,35 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 $module_name = 'hr_Employee_absences';
 $listViewDefs[$module_name] = array(
-    'NAME' => array(
+    'USER_NAME' => array(
         'width' => '32',
         'label' => 'LBL_NAME',
         'default' => true,
         'link' => true
     ),
-    'ASSIGNED_USER_NAME' => array(
+    'ABSENCE_TYPE' => array(
         'width' => '9',
-        'label' => 'LBL_ASSIGNED_TO_NAME',
-        'module' => 'Employees',
-        'id' => 'ASSIGNED_USER_ID',
-        'default' => true
+        'label' => 'LBL_ABSENCE_TYPE',
+        'default' => true,
+        'link' => true
+    ),
+    'FROM_DATE' => array(
+        'width' => '9',
+        'label' => 'LBL_FROM_DATE',
+        'default' => true,
+        'link' => false
+    ),
+    'TO_DATE' => array(
+        'width' => '9',
+        'label' => 'LBL_TO_DATE',
+        'default' => true,
+        'link' => false
+    ),
+    'STATUS' => array(
+        'width' => '9',
+        'label' => 'LBL_STATUS',
+        'default' => true,
+        'link' => false
     ),
 
 );

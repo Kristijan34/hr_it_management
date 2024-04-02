@@ -1,4 +1,4 @@
-<?php
+{*
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -37,46 +37,19 @@
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
-$mod_strings = array (
-  'LBL_ASSIGNED_TO_ID' => 'Assigned User Id',
-  'LBL_ASSIGNED_TO_NAME' => 'Assigned to',
-  'LBL_SECURITYGROUPS' => 'Security Groups',
-  'LBL_SECURITYGROUPS_SUBPANEL_TITLE' => 'Security Groups',
-  'LBL_ID' => 'ID',
-  'LBL_DATE_ENTERED' => 'Date Created',
-  'LBL_DATE_MODIFIED' => 'Date Modified',
-  'LBL_MODIFIED' => 'Modified By',
-  'LBL_MODIFIED_NAME' => 'Modified By Name',
-  'LBL_CREATED' => 'Created By',
-  'LBL_DESCRIPTION' => 'Description',
-  'LBL_DELETED' => 'Deleted',
-  'LBL_NAME' => 'Name',
-  'LBL_CREATED_USER' => 'Created by User',
-  'LBL_MODIFIED_USER' => 'Modified by User',
-  'LBL_LIST_NAME' => 'Name',
-  'LBL_EDIT_BUTTON' => 'Edit',
-  'LBL_REMOVE' => 'Remove',
-  'LBL_ASCENDING' => 'Ascending',
-  'LBL_DESCENDING' => 'Descending',
-  'LBL_OPT_IN' => 'Opt In',
-  'LBL_OPT_IN_PENDING_EMAIL_NOT_SENT' => 'Pending Confirm opt in, Confirm opt in not sent',
-  'LBL_OPT_IN_PENDING_EMAIL_SENT' => 'Pending Confirm opt in, Confirm opt in sent',
-  'LBL_OPT_IN_CONFIRMED' => 'Opted in',
-  'LBL_LIST_FORM_TITLE' => 'Employee Absences List',
-  'LBL_MODULE_NAME' => 'Employee Absences',
-  'LBL_MODULE_TITLE' => 'Employee Absences',
-  'LBL_HOMEPAGE_TITLE' => 'My Employee Absences',
-  'LNK_NEW_RECORD' => 'Create Employee Absences',
-  'LNK_LIST' => 'View Employee Absences',
-  'LNK_IMPORT_HR_EMPLOYEE_ABSENCES' => 'Import Employee Absences',
-  'LBL_SEARCH_FORM_TITLE' => 'Search Employee Absences',
-  'LBL_HISTORY_SUBPANEL_TITLE' => 'View History',
-  'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
-  'LBL_HR_EMPLOYEE_ABSENCES_SUBPANEL_TITLE' => 'Employee Absences',
-  'LBL_NEW_FORM_TITLE' => 'New Employee Absences',
-    'LBL_ABSENCE_TYPE' => 'Absence type',
-    'LBL_FROM_DATE' => 'From date',
-    'LBL_TO_DATE' => 'To date',
-    'LBL_STATUS' => 'Status',
-    'LBL_SEND_FOR_APPROVALS' => 'Send for approval',
-);
+
+*}
+{{if !$nolink && !empty($vardef.id_name)}} 
+{if !empty({{sugarvar memberName='vardef.id_name' key='value' string='true'}})}
+{capture assign="detail_url"}index.php?module={{$vardef.module}}&action=DetailView&record={{sugarvar  memberName='vardef.id_name' key='value'}}{/capture}
+<a href="{sugar_ajax_url url=$detail_url}">{/if}
+{{/if}}
+<span id="{{$vardef.id_name}}" class="sugar_field" data-id-value="{{sugarvar memberName='vardef.id_name' key='value'}}">{{sugarvar key='value'}}</span>
+{{if !$nolink && !empty($vardef.id_name)}}
+{if !empty({{sugarvar memberName='vardef.id_name' key='value' string='true'}})}</a>{/if}
+{{/if}}
+{{if !empty($displayParams.enableConnectors) && !empty($vardef.id_name)}}
+{if !empty({{sugarvar memberName='vardef.id_name' key='value' string='true'}})}
+{{sugarvar_connector view='DetailView'}} 
+{/if}
+{{/if}}

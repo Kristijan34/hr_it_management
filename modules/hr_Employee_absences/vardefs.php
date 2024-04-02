@@ -44,8 +44,121 @@ $dictionary['hr_Employee_absences'] = array(
     'inline_edit' => true,
     'duplicate_merge' => true,
     'fields' => array (
+        'user_id' =>
+            array (
+                'required' => false,
+                'name' => 'user_id',
+                'vname' => 'LBL_NAME',
+                'type' => 'varchar',
+                'massupdate' => 0,
+                'no_default' => false,
+                'audited' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => '255',
+                'size' => '20',
+            ),
+        'user_name' =>
+            array(
+                'required' => true,
+                'name' => 'user_name',
+                'rname' => 'name',
+                'id_name' => 'user_id',
+                'vname' => 'LBL_NAME',
+                'type' => 'relate',
+                'link' => 'absence_user',
+                'table' => 'users',
+                'isnull' => 'true',
+                'module' => 'Users',
+                'source' => 'non-db',
+                'custom_readonly' => true
+            ),
+        'absence_user' =>
+            array(
+                'name' => 'absence_user',
+                'type' => 'link',
+                'vname' => 'LBL_NAME',
+                'relationship' => 'absences_user',
+                'source' => 'non-db',
+            ),
+        //end target_groups relate
+        'from_date' =>
+            array (
+                'required' => true,
+                'name' => 'from_date',
+                'vname' => 'LBL_FROM_DATE',
+                'type' => 'date',
+                'audited' => true,
+                'comment' => 'Starting date of absence',
+                'validation' =>
+                    array (
+                        'type' => 'isbefore',
+                        'compareto' => 'to_date',
+                    ),
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true
+            ),
+        'to_date' =>
+            array (
+                'name' => 'to_date',
+                'vname' => 'LBL_TO_DATE',
+                'type' => 'date',
+                'audited' => true,
+                'comment' => 'Ending date of absence',
+                'importable' => 'required',
+                'required' => true,
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true
+            ),
+        'absence_type' => array(
+            'required' => true,
+            'name' => 'absence_type',
+            'vname' => 'LBL_ABSENCE_TYPE',
+            'type' => 'enum',
+            'options' => 'absence_type_list',
+            'len' => 50,
+            'comment' => 'Absences type for the user to choose',
+            'merge_filter' => 'enabled',
+        ),
+        'status' =>
+            array (
+                'required' => false,
+                'name' => 'status',
+                'vname' => 'LBL_STATUS',
+                'type' => 'enum',
+                'massupdate' => 0,
+                'default' => 'new',
+                'no_default' => false,
+                'comments' => '',
+                'help' => '',
+                'importable' => 'true',
+                'duplicate_merge' => 'disabled',
+                'duplicate_merge_dom_value' => '0',
+                'audited' => true,
+                'inline_edit' => true,
+                'reportable' => true,
+                'unified_search' => false,
+                'merge_filter' => 'disabled',
+                'len' => 100,
+                'size' => '20',
+                'options' => 'approval_status_dom',
+                'studio' => 'visible',
+                'dependency' => false,
+            ),
 ),
     'relationships' => array (
+        'absences_user' =>
+            array (
+                'lhs_module' => 'hr_Employee_absences',
+                'lhs_table' => 'hr_employee_absences',
+                'lhs_key' => 'user_id',
+                'rhs_module' => 'Users',
+                'rhs_table' => 'users',
+                'rhs_key' => 'id',
+                'relationship_type' => 'one-to-one',
+            ),
 ),
     'optimistic_locking' => true,
     'unified_search' => true,
