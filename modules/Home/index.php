@@ -42,7 +42,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
  */
 
 
-global $current_user, $sugar_version, $sugar_config, $beanFiles;
+global $current_user, $sugar_version, $sugar_config, $beanFiles,$db;
 
 
 require_once('include/MySugar/MySugar.php');
@@ -66,6 +66,8 @@ $defaultHomepage = false;
 
 $hasUserPreferences = (!isset($pages) || empty($pages) || !isset($dashlets) || empty($dashlets)) ? false : true;
 
+
+$GLOBALS['log']->fatal('2');
 if (!$hasUserPreferences) {
     $dashlets = array();
 

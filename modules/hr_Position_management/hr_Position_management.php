@@ -84,7 +84,9 @@ class hr_Position_management extends Basic
         $this->region_name = $this->getRegionName($this->region_id);
         $this->store_name = $this->getStoreName($this->store_id);
         $this->role_name = $this->getRoleName($this->role_id);
-        $this->approval_name = $this->getApprovalName($this->approval_role_id);
+        if($this->approval_role_id != ''){
+            $this->approval_name = $this->getApprovalName($this->approval_role_id);
+        }
     }
 
     function getRoleName($role_id){
@@ -134,5 +136,12 @@ class hr_Position_management extends Basic
         return $stores_by_region;
 
     }
-	
+
+    function create_new_list_query($order_by, $where, $filter=array(), $params=array(), $show_deleted = 0, $join_type='', $return_array = false, $parentbean=null, $singleSelect = false, $ifListForExport = false) {
+        $sql_arr = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect, $ifListForExport);
+       $GLOBALS['log']->fatal(print_r($_SESSION['selected_region_id'],true));
+
+        return $sql_arr;
+    }
+
 }

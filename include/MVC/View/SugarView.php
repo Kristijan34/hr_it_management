@@ -377,6 +377,7 @@ class SugarView
         global $app_list_strings;
         global $mod_strings;
         global $current_language;
+        global $db;
 
         $GLOBALS['app']->headerDisplayed = true;
 
@@ -557,6 +558,24 @@ class SugarView
                 $current_user->full_name == '' || !showFullName() ? $current_user->user_name : $current_user->full_name
             );
             $ss->assign("CURRENT_USER_ID", $current_user->id);
+
+            //getRegions();
+            if (!isset($GLOBALS['cached_regions'])) {
+                // Fetch regions from the database
+                $regions = getRegions();
+
+                // Store the fetched regions in a global variable for later use
+                $GLOBALS['cached_regions'] = $regions;
+            } else {
+                // If regions have already been fetched, use the cached regions
+                $regions = $GLOBALS['cached_regions'];
+            }
+            $ss->assign('REGIONS',$regions);
+            //$GLOBALS['log']->fatal(print_r($regions,true));
+// Retrieve the selected region from the session
+            $selectedRegion = isset($_SESSION['selected_region_name']) ? $_SESSION['selected_region_name'] : '';
+// Assign the selected region to the template
+            $ss->assign('selectedRegion', $selectedRegion);
 
             // get the last viewed records
             $favorites = BeanFactory::getBean('Favorites');

@@ -308,7 +308,22 @@
                 {* 7.8 Hide filter menu items when the window is too small to display them *}
             {literal}
                 <script>
-                  var windowResize = function() {
+                    function selectRegion(regionId, regionName) {
+                        // Perform AJAX request to save selected region ID and name in session
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'save_region.php');
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.onload = function() {
+                            if (xhr.status === 200) {
+                                console.log('Selected Region ID and Name saved in session:', regionId, regionName);
+                            }
+                        };
+                        // Send both region ID and name in the request body
+                        xhr.send('region_id=' + encodeURIComponent(regionId) + '&region_name=' + encodeURIComponent(regionName));
+                        location.reload();
+                    }
+
+                    var windowResize = function() {
                     // Since the height can be changed in Sass.
                     // Take a measurement of the initial desktop navigation bar height with just one menu item
                     $('.desktop-toolbar ul.navbar-nav > li').not('.all').addClass('hidden');
@@ -491,39 +506,23 @@
         <!-- Right side of the main navigation -->
         <div class="mobile-bar">
             <ul id="toolbar" class="toolbar">
+                {if $selectedRegion}
+                    <li id="selectedRegion" class="selected-region" style="color: white; font-size: 1.1em;">
+                        <span class="selected-region-label">Selected Region:</span> {$selectedRegion}
+                    </li>
+                {/if}
+                <li></li>
                 <li id="quickcreatetop" class="create dropdown nav navbar-nav quickcreatetop">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        {$APP.LBL_CREATE_BUTTON_LABEL}<span class="suitepicon suitepicon-action-caret"></span>
+                        Choose Region<span class="suitepicon suitepicon-action-caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Accounts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Contacts&action=EditView&return_module=Contacts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Contacts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Opportunities&action=EditView&return_module=Opportunities&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Opportunities" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Leads&action=EditView&return_module=Leads&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Leads" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Documents&action=EditView&return_module=Documents&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Documents" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Calls&action=EditView&return_module=Calls&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Calls" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Tasks&action=EditView&return_module=Tasks&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Tasks" label="LBL_MODULE_NAME"}</a></li>
+                        {foreach from=$REGIONS item=regionName key=regionId}
+                            <li>
+                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')">{$regionName}</a>
+                            </li>
+                        {/foreach}
                     </ul>
-                </li>
-                <li id="" class="dropdown nav navbar-nav navbar-search">
-                    <button id="searchbutton" class="dropdown-toggle btn btn-default searchbutton suitepicon suitepicon-action-search" data-toggle="dropdown" aria-expanded="true">
-                    </button>
-                    <div class="dropdown-menu" role="menu" aria-labelledby="searchbutton">
-                        <form id="searchformdropdown" class="searchformdropdown" name='UnifiedSearch' action='index.php'
-                              onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>
-                            {search_controller}
-                            <input type="hidden" class="form-control" name="module" value="Home">
-                            <input type="hidden" class="form-control" name="search_form" value="false">
-                            <input type="hidden" class="form-control" name="advanced" value="false">
-                            <div class="input-group">
-                                <input type="text" class="form-control query_string" name="query_string" id="query_string"
-                                       placeholder="{$APP.LBL_SEARCH_BUTTON}..." value="{$SEARCH}"/>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default suitepicon suitepicon-action-search"></button>
-                            </span>
-                            </div>
-                        </form>
-                    </div>
                 </li>
                 <li id="desktop_notifications" class="dropdown nav navbar-nav desktop_notifications">
                     <button class="alertsButton btn dropdown-toggle suitepicon suitepicon-action-alerts" data-toggle="dropdown"
@@ -531,22 +530,6 @@
                         <span class="alert_count hidden">0</span>
                     </button>
                     <div id="alerts" class="dropdown-menu" role="menu">{$APP.LBL_EMAIL_ERROR_VIEW_RAW_SOURCE}</div>
-                </li>
-                <li>
-                    <form id="searchform" class="navbar-form searchform" name='UnifiedSearch' action='index.php'
-                          onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>
-                        {search_controller}
-                        <input type="hidden" class="form-control" name="module" value="Home">
-                        <input type="hidden" class="form-control" name="search_form" value="false">
-                        <input type="hidden" class="form-control" name="advanced" value="false">
-                        <div class="input-group">
-                            <input type="text" class="form-control query_string " name="query_string" id="query_string"
-                                   placeholder="{$APP.LBL_SEARCH}..." value="{$SEARCH}"/>
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default suitepicon suitepicon-action-search"></button>
-                    </span>
-                        </div>
-                    </form>
                 </li>
                 <li id="globalLinks" class="dropdown nav navbar-nav globalLinks-mobile">
 
@@ -563,10 +546,10 @@
                             <li role="presentation">
                                 <a id="{$gcl_key}_link"
                                    href="{$GCL.URL}"
-                                   {if !empty($GCL.ONCLICK)} 
+                                   {if !empty($GCL.ONCLICK)}
                                    onclick="{$GCL.ONCLICK}"
                                    {/if}
-                                   {if !empty($GCL.TARGET)} 
+                                   {if !empty($GCL.TARGET)}
                                    target="{$GCL.TARGET}"
                                    {/if}
                                    >{$GCL.LABEL}</a>
@@ -580,55 +563,23 @@
         </div>
         <div class="tablet-bar">
             <ul id="toolbar" class="toolbar">
+                {if $selectedRegion}
+                    <li id="selectedRegion" class="selected-region" style="color: white; font-size: 1.1em;">
+                        <span class="selected-region-label">Selected Region:</span> {$selectedRegion}
+                    </li>
+                {/if}
+                <li></li>
                 <li id="quickcreatetop" class="create dropdown nav navbar-nav quickcreatetop">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        {$APP.LBL_CREATE_BUTTON_LABEL}<span class="suitepicon suitepicon-action-caret"></span>
+                        Choose Region<span class="suitepicon suitepicon-action-caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Accounts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Contacts&action=EditView&return_module=Contacts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Contacts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Opportunities&action=EditView&return_module=Opportunities&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Opportunities" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Leads&action=EditView&return_module=Leads&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Leads" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Documents&action=EditView&return_module=Documents&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Documents" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Calls&action=EditView&return_module=Calls&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Calls" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Tasks&action=EditView&return_module=Tasks&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Tasks" label="LBL_MODULE_NAME"}</a></li>
+                        {foreach from=$REGIONS item=regionName key=regionId}
+                            <li>
+                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')">{$regionName}</a>
+                            </li>
+                        {/foreach}
                     </ul>
-                </li>
-                <li id="" class="dropdown nav navbar-nav navbar-search">
-                    <button id="searchbutton" class="dropdown-toggle btn btn-default searchbutton suitepicon suitepicon-action-search" data-toggle="dropdown" aria-expanded="true">
-                    </button>
-                    <div class="dropdown-menu" role="menu" aria-labelledby="searchbutton">
-                        <form id="searchformdropdown" class="searchformdropdown" name='UnifiedSearch' action='index.php'
-                              onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>
-                            {search_controller}
-                            <input type="hidden" class="form-control" name="module" value="Home">
-                            <input type="hidden" class="form-control" name="search_form" value="false">
-                            <input type="hidden" class="form-control" name="advanced" value="false">
-                            <div class="input-group">
-                                <input type="text" class="form-control query_string" name="query_string" id="query_string"
-                                       placeholder="{$APP.LBL_SEARCH}..." value="{$SEARCH}"/>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default suitepicon suitepicon-action-search"></button>
-                            </span>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-                <li>
-                    <form id="searchform" class="navbar-form searchform" name='UnifiedSearch' action='index.php'
-                          onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>
-                        {search_controller}
-                        <input type="hidden" class="form-control" name="module" value="Home">
-                        <input type="hidden" class="form-control" name="search_form" value="false">
-                        <input type="hidden" class="form-control" name="advanced" value="false">
-                        <div class="input-group">
-                            <input type="text" class="form-control query_string" name="query_string" id="query_string"
-                                   placeholder="{$APP.LBL_SEARCH}..." value="{$SEARCH}"/>
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default suitepicon suitepicon-action-search"></button>
-                    </span>
-                        </div>
-                    </form>
                 </li>
                 <li id="desktop_notifications" class="dropdown nav navbar-nav desktop_notifications">
                     <button class="alertsButton btn dropdown-toggle suitepicon suitepicon-action-alerts" data-toggle="dropdown"
@@ -653,10 +604,10 @@
                             <li role="presentation">
                                 <a id="{$gcl_key}_link"
                                    href="{$GCL.URL}"
-                                   {if !empty($GCL.ONCLICK)} 
+                                   {if !empty($GCL.ONCLICK)}
                                    onclick="{$GCL.ONCLICK}"
                                    {/if}
-                                   {if !empty($GCL.TARGET)} 
+                                   {if !empty($GCL.TARGET)}
                                    target="{$GCL.TARGET}"
                                    {/if}
                                    >{$GCL.LABEL}</a>
@@ -670,39 +621,23 @@
         </div>
         <div class="desktop-bar">
             <ul id="toolbar" class="toolbar">
+                {if $selectedRegion}
+                    <li id="selectedRegion" class="selected-region" style="color: white; font-size: 1.1em;">
+                        <span class="selected-region-label">Selected Region:</span> {$selectedRegion}
+                    </li>
+                {/if}
+                <li></li>
                 <li id="quickcreatetop" class="create dropdown nav navbar-nav quickcreatetop">
                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        {$APP.LBL_CREATE_BUTTON_LABEL}<span class="suitepicon suitepicon-action-caret"></span>
+                        Choose Region<span class="suitepicon suitepicon-action-caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.php?module=Accounts&action=EditView&return_module=Accounts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Accounts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Contacts&action=EditView&return_module=Contacts&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Contacts" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Opportunities&action=EditView&return_module=Opportunities&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Opportunities" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Leads&action=EditView&return_module=Leads&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Leads" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Documents&action=EditView&return_module=Documents&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Documents" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Calls&action=EditView&return_module=Calls&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Calls" label="LBL_MODULE_NAME"}</a></li>
-                        <li><a href="index.php?module=Tasks&action=EditView&return_module=Tasks&return_action=DetailView">{$APP.LBL_QUICK_CREATE}{sugar_translate module="Tasks" label="LBL_MODULE_NAME"}</a></li>
+                        {foreach from=$REGIONS item=regionName key=regionId}
+                            <li>
+                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')">{$regionName}</a>
+                            </li>
+                        {/foreach}
                     </ul>
-                </li>
-                <li id="" class="dropdown nav navbar-nav navbar-search">
-                    <button id="searchbutton" class="dropdown-toggle btn btn-default searchbutton suitepicon suitepicon-action-search" data-toggle="dropdown" aria-expanded="true">
-                    </button>
-                    <div class="dropdown-menu" role="menu" aria-labelledby="searchbutton">
-                        <form id="searchformdropdown" class="searchformdropdown" name='UnifiedSearch' action='index.php'
-                              onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>
-                            {search_controller}
-                            <input type="hidden" class="form-control" name="module" value="Home">
-                            <input type="hidden" class="form-control" name="search_form" value="false">
-                            <input type="hidden" class="form-control" name="advanced" value="false">
-                            <div class="input-group">
-                                <input type="text" class="form-control query_string" name="query_string" id="query_string"
-                                       placeholder="{$APP.LBL_SEARCH}..." value="{$SEARCH}"/>
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default suitepicon suitepicon-action-search"></button>
-                            </span>
-                            </div>
-                        </form>
-                    </div>
                 </li>
                 <li>
                     <form id="searchform" class="navbar-form searchform" name='UnifiedSearch' action='index.php'
@@ -743,7 +678,7 @@
                             <li role="presentation">
                                 <a id="{$gcl_key}_link"
                                    href="{$GCL.URL}"
-                                   {if !empty($GCL.ONCLICK)} 
+                                   {if !empty($GCL.ONCLICK)}
                                    onclick="{$GCL.ONCLICK}"
                                    {/if}
                                    {if !empty($GCL.TARGET)}
@@ -759,7 +694,11 @@
             </ul>
 
         </div>
+
+
+
 </nav>
+
 <!--End Responsive Top Navigation Menu -->
 {if $THEME_CONFIG.display_sidebar}
     <!--Start Page Container and Responsive Sidebar -->

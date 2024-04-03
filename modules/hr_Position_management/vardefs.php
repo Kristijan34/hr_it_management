@@ -61,7 +61,7 @@ $dictionary['hr_Position_management'] = array(
             ),
         'approval_name' =>
             array(
-                'required' => true,
+                'required' => false,
                 'name' => 'approval_name',
                 'rname' => 'name',
                 'id_name' => 'approval_role_id',
