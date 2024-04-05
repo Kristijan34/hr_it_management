@@ -49,6 +49,7 @@ class hr_Employee_absences extends Basic
 
     public $id;
     public $name;
+    public $user_name;
     public $date_entered;
     public $date_modified;
     public $modified_user_id;
@@ -74,5 +75,54 @@ class hr_Employee_absences extends Basic
 
         return false;
     }
-	
+
+    function sendForApproval() {
+        global $db, $current_user;
+
+        $approvers = array();
+
+        $sql = "SELECT pm.user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) AS fullname,
+                    ea.email_address,
+                    (SELECT value FROM config WHERE name='fromaddress') AS from_email,
+                    (SELECT value FROM config WHERE name='fromname') AS from_name
+                FROM hr_position_management pm
+                JOIN email_addr_bean_rel eabr ON eabr.bean_id = pm.user_id AND eabr.deleted = 0
+                JOIN email_addresses ea ON eabr.email_address_id = ea.id AND ea.deleted = 0
+                JOIN users u ON u.id = pm.user_id
+                JOIN acl_roles ar on pm.approval_role_id = ar.id";
+        // $GLOBALS['log']->fatal("SQL: $sql");
+        $result = $db->query($sql);
+        $cnt=0;
+        while ($row = $db->fetchByAssoc($result)) {
+            $approvers['user_id'][$cnt] = $row['user_id'];
+            $approvers['email']['name'][$cnt] = $row['fullname'];
+            $approvers['email']['address'][$cnt] = $row['email_address'];
+            $approvers['email']['from_name']  = $row['from_name'];
+            $approvers['email']['from_email'] = $row['from_email'];
+            $cnt++;
+        }
+
+        return $approvers;
+    }
+
+    function updateStatus($new_status) {
+        $employee_absence = BeanFactory::newBean($this->module_dir);
+        $employee_absence->id = $_REQUEST['record'];
+        $employee_absence->status = $new_status;
+        $employee_absence->save();
+
+        $this->createStatusHistory($_REQUEST['status'], $new_status);
+    }
+
+    private function createStatusHistory($old_value, $new_value) {
+        global $db, $current_user;
+
+        $sql = "INSERT INTO {$this->table_name}_audit (id, parent_id, date_created, created_by, field_name, data_type, before_value_string, after_value_string)
+            VALUES ('" . create_guid() . "', '" . $_REQUEST['record'] . "', NOW(), '" . $current_user->id . "', 'status', 'varchar', '{$old_value}', '{$new_value}')
+            ";
+        $db->query($sql);
+    }
+
+
 }

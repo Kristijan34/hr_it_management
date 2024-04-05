@@ -54,6 +54,10 @@ $viewdefs[$module_name]['DetailView'] = array(
             array('label' => '10', 'field' => '30'),
             array('label' => '10', 'field' => '30')
         ),
+        'includes' =>
+            array (
+                0=>array( 'file'=>'modules/hr_Employee_absences/javascript/detail.js' )
+            ),
     ),
 
     'panels' =>

@@ -2,3 +2,5 @@ cache/
 /suitecrm.log
 /install.log
 .idea/
+/modules/AOD_Index
+/custom/blowfish

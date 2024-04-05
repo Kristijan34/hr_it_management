@@ -342,6 +342,7 @@
                   $(window).resize(windowResize);
                   $(document).ready(windowResize);
                 </script>
+            <link rel="stylesheet" type="text/css" href="custom/themes/custom_login.css" />
             {/literal}
             {else}
 

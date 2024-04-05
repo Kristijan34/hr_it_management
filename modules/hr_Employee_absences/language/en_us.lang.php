@@ -79,4 +79,9 @@ $mod_strings = array (
     'LBL_TO_DATE' => 'To date',
     'LBL_STATUS' => 'Status',
     'LBL_SEND_FOR_APPROVALS' => 'Send for approval',
+    'LBL_NO_APPROVERS' => 'There are no approves found. The absence cannot be sent for approval.',
+    'LBL_EMAIL_APPROVAL_SUBJECT' => 'Approval for $absence_type for $target_name',
+    'LBL_EMAIL_APPROVAL_BODY' => 'Hello, <br/><br/> Absence for <a href="$url">$target_name</a> has been sent for your approval.',
+
+
 );

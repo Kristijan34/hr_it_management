@@ -65,10 +65,9 @@ class hr_Employee_absencesViewDetail extends ViewDetail {
                 $this->dv->defs['templateMeta']['form']['buttons'][] = array(
                     'customCode' => '<input type="button" class="button" style="cursor: pointer;" id="send_for_approval" value="{$MOD.LBL_SEND_FOR_APPROVALS}">'
                 );
-
                 $this->dv->defs['templateMeta']['form']['buttons'][] = 'EDIT';
-                $this->dv->defs['templateMeta']['form']['buttons'][] = 'DELETE';
             }
+            $this->dv->defs['templateMeta']['form']['buttons'][] = 'DELETE';
         }
 //
 //

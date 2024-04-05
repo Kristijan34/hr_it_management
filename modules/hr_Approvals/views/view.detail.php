@@ -67,7 +67,7 @@ class hr_ApprovalsViewDetail extends ViewDetail
         $bean = BeanFactory::getBean($this->bean->entity_type, $this->bean->entity_id);
         //$GLOBALS['log']->fatal('bean ' . print_r($bean,true));
 
-        $this->bean->entity_name = $bean->name;
+        $this->bean->entity_name = $bean->user_name;
         $this->bean->entity_type_name = $app_list_strings['moduleList'][$this->bean->entity_type];
 
 

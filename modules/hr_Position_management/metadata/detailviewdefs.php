@@ -44,9 +44,7 @@ $viewdefs[$module_name]['DetailView'] = array(
         'form' => array(
             'buttons' => array(
                 'EDIT',
-                'DUPLICATE',
                 'DELETE',
-                'FIND_DUPLICATES',
             )
         ),
         'maxColumns' => '2',
