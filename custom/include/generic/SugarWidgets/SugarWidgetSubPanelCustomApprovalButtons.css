@@ -1,0 +1,19 @@
+.customAppBut{
+    text-align: center;
+    border: 1px solid;
+    border-color: #778591;
+    background-color: #BFCAD3;
+    border-radius: 3px !important;
+    font-size: 13px;
+    padding: 0px 10px !important;
+    line-height: initial;
+    height: initial;
+    min-height: auto;
+}
+.customAppBut:hover{
+    color: #a67272 !important;
+    background-color: #8296a6 !important;
+}
+.custom_height{
+    height: 26px !important;
+}

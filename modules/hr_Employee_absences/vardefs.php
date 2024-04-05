@@ -147,6 +147,15 @@ $dictionary['hr_Employee_absences'] = array(
                 'studio' => 'visible',
                 'dependency' => false,
             ),
+        'absence_approvals' => array(
+            'name' => 'absence_approvals',
+            'type' => 'link',
+            'relationship' => 'absence_approvals',
+            'module' => 'hr_Approvals',
+            'bean_name' => 'hr_Approvals',
+            'source' => 'non-db',
+            'vname' => 'LBL_APPROVALS',
+        ),
 ),
     'relationships' => array (
         'absences_user' =>
@@ -159,6 +168,15 @@ $dictionary['hr_Employee_absences'] = array(
                 'rhs_key' => 'id',
                 'relationship_type' => 'one-to-one',
             ),
+        'absence_approvals' => array(
+            'lhs_module' => 'hr_Approvals',
+            'lhs_table' => 'hr_approvals',
+            'lhs_key' => 'entity_id',
+            'rhs_module' => 'hr_Employee_absences',
+            'rhs_table' => 'hr_employee_absences',
+            'rhs_key' => 'id',
+            'relationship_type' => 'one-to-many'
+        ),
 ),
     'optimistic_locking' => true,
     'unified_search' => true,

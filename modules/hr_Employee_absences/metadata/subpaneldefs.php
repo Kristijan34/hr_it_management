@@ -1,14 +1,17 @@
 <?php
-$module_name = 'hr_Employee_absences';
-$layout_defs[$module_name]['subpanel_setup']['securitygroups'] = array(
-    'top_buttons' => array(array('widget_class' => 'SubPanelTopSelectButton', 'popup_module' => 'SecurityGroups', 'mode' => 'MultiSelect')),
-    'order' => 900,
-    'sort_by' => 'name',
-    'sort_order' => 'asc',
-    'module' => 'SecurityGroups',
-    'refresh_page' => 1,
-    'subpanel_name' => 'default',
-    'get_subpanel_data' => 'SecurityGroups',
-    'add_subpanel_data' => 'securitygroup_id',
-    'title_key' => 'LBL_SECURITYGROUPS_SUBPANEL_TITLE',
+$layout_defs['hr_Employee_absences'] = array(
+    // list of what Subpanels to show in the DetailView
+    'subpanel_setup' => array(
+        'hr_approvals' => array(
+            'order' => 100,
+            'sort_by' => 'name',
+            'sort_order' => 'asc',
+            'module' => 'hr_Approvals',
+            'subpanel_name' => 'approvals',
+            'get_subpanel_data' => 'absence_approvals',
+            'title_key' => 'LBL_APPROVALS',
+            'top_buttons' => array(
+            ),
+        ),
+    ),
 );

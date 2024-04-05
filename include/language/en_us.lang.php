@@ -2166,6 +2166,18 @@ $app_strings = array(
     'LBL_CONTACT_HAS_NO_PRIMARY_EMAIL' => 'Confirm Opt In Email sending is not possible because the Contact has not Primary Email Address',
     'LBL_CONFIRM_EMAIL_SENDING_FAILED' => 'Confirm Opt In Email sending failed',
     'LBL_CONFIRM_EMAIL_SENT' => 'Confirm Opt In Email sent successfully',
+
+    //CUSTOM LABELS KRISTIJAN
+    'LBL_APPROVE' => 'Approve',
+    'LBL_REJECT' => 'Reject',
+    'LBL_APPROVALS' => 'Аpproval Status',
+    'LBL_APPROVALS_BUTTON_OK' => 'Yes',
+    'LBL_APPROVALS_BUTTON_NO' => 'No',
+    'LBL_APPROVALS_BUTTON_CANCEL' => 'Cancel',
+    'LBL_UPDATE_STATUS' => 'Please confirm that you are changing the status of the approval to ',
+    'LBL_UPDATE_STATUS_PENDING' => 'Please select Approve or Reject in field Status.',
+    'LBL_APPROVE_BUTTON_LABEL' => 'Approve',
+    'LBL_REJECT_BUTTON_LABEL' => 'Reject',
 );
 
 $app_list_strings['moduleList']['Library'] = 'Library';
