@@ -48,9 +48,9 @@ $mod_strings = array (
   'LBL_MODIFIED' => 'Modified By',
   'LBL_MODIFIED_NAME' => 'Modified By Name',
   'LBL_CREATED' => 'Created By',
-  'LBL_DESCRIPTION' => 'Description',
+  'LBL_DESCRIPTION' => 'Details',
   'LBL_DELETED' => 'Deleted',
-  'LBL_NAME' => 'Name',
+  'LBL_NAME' => 'Benefit',
   'LBL_CREATED_USER' => 'Created by User',
   'LBL_MODIFIED_USER' => 'Modified by User',
   'LBL_LIST_NAME' => 'Name',
@@ -74,4 +74,19 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_EMPLOYEE_BENEFITS_SUBPANEL_TITLE' => 'Employee Benefits',
   'LBL_NEW_FORM_TITLE' => 'New Employee Benefits',
+    'LBL_PROVIDER' => 'Provider/Company',
+    'LBL_STATUS' => 'Benefit Status',
+    'LBL_NOTIFY' => 'Notify Users',
+    'LBL_EMPLOYEE_DISCOUNT' => ' Exciting News! New Benefit Available: $benefit_name',
+    'LBL_EMAIL_BENEFIT_BODY' => 'Dear Employees,<br/><br/>
+            A new benefit has been made available:<br/><br/>
+<b>Benefit Overview:</b><br/>
+- <b>What:</b> $description <br/>
+- <b>Provider:</b> $provider <br/><br/>
+If you have any questions or need further information, please don\'t hesitate to contact us.<br/><br/>
+Best regards,<br/>
+$current_user<br/>
+HR Manager<br/>
+Company Name',
+
 );

@@ -6056,3 +6056,23 @@ function getStores(){
 
     return $stores;
 }
+
+function isUserHRManager()
+{
+    global $current_user;
+    include_once('modules/ACLRoles/ACLRole.php');
+    $ACLRole = new ACLRole();
+    $roles = $ACLRole->getUserRoleNames($current_user->id);
+
+    $foundHRManager = false;
+    foreach ($roles as $role) {
+        if ($role == "HR Manager") {
+            // Role "HR Manager" exists
+            $foundHRManager = true;
+            break; // Exit the loop as soon as "HR Manager" is found
+        }
+    }
+
+    return $foundHRManager;
+
+}

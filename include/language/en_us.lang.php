@@ -369,8 +369,8 @@ $app_list_strings = array(
         'Administrator' => 'Administrator',
     ),
     'user_status_dom' => array(
-        'Active' => 'Active',
-        'Inactive' => 'Inactive',
+        'active' => 'Active',
+        'inactive' => 'Inactive',
     ),
     'user_factor_auth_interface_dom' => array(
         'FactorAuthEmailCode' => 'Email Code',

@@ -46,19 +46,37 @@ $viewdefs[$module_name]['EditView'] = array(
             array('label' => '10', 'field' => '30'),
             array('label' => '10', 'field' => '30')
         ),
+        'includes' => array(
+            array('file' => 'modules/hr_Employee_benefits/javascript/edit.js'),
+        ),
     ),
 
     'panels' => array(
         'default' => array(
+            0 => array(
+                0 => array(
+                    'name' => 'name',
+                    'label' => 'LBL_NAME',
 
-            array(
-                'name',
-                'assigned_user_name',
+                ),
+                1 => array(
+                    'name' => 'provider',
+                    'label' => 'LBL_PROVIDER',
+                ),
             ),
+            1 => array(
+                0 => array(
+                    'name' => 'status',
+                    'label' => 'LBL_STATUS',
+                ),
+                1 => array(
+                    'name' => 'description',
+                    'label' => 'LBL_DESCRIPTION',
+                ),
+            ),
+            2 => array(
 
-            array(
-                'description',
-            ),
+            )
         ),
 
     ),

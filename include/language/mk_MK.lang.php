@@ -409,8 +409,8 @@ $app_list_strings = array(
         'Administrator' => 'Администратор',
     ),
     'user_status_dom' => array(
-        'Active' => 'Активен',
-        'Inactive' => 'Неактивен',
+        'active' => 'Активен',
+        'inactive' => 'Неактивен',
     ),
     'user_factor_auth_interface_dom' => array(
         'FactorAuthEmailCode' => 'Е-Мејл Код',

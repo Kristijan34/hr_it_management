@@ -1,4 +1,8 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -38,70 +42,34 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
+/*********************************************************************************
+ * Description: This file is used to override the default Meta-data EditView behavior
+ * to provide customization specific to the Calls module.
+ * Portions created by SugarCRM are Copyright (C) SugarCRM, Inc.
+ * All Rights Reserved.
+ * Contributor(s): ______________________________________..
+ ********************************************************************************/
+class hr_Employee_benefitsViewDetail extends ViewDetail {
 
-class hr_Employee_benefits extends Basic
-{
-    public $new_schema = true;
-    public $module_dir = 'hr_Employee_benefits';
-    public $object_name = 'hr_Employee_benefits';
-    public $table_name = 'hr_employee_benefits';
-    public $importable = false;
+    /**
+     * @see SugarView::display()
+     */
+    public function display() {
+       global $current_user;
 
-    public $id;
-    public $name;
-    public $date_entered;
-    public $date_modified;
-    public $modified_user_id;
-    public $modified_by_name;
-    public $created_by;
-    public $created_by_name;
-    public $description;
-    public $deleted;
-    public $created_by_link;
-    public $modified_user_link;
-    public $assigned_user_id;
-    public $assigned_user_name;
-    public $assigned_user_link;
-    public $SecurityGroups;
-	
-    public function bean_implements($interface)
-    {
-        switch($interface)
-        {
-            case 'ACL':
-                return true;
+       $isUserHR = isUserHRManager();
+
+
+//send for approval
+        $this->dv->defs['templateMeta']['form']['buttons'] = array();
+        if($isUserHR){
+                $this->dv->defs['templateMeta']['form']['buttons'][] = array(
+                    'customCode' => '<input type="button" class="button" style="cursor: pointer;" id="notify_users" value="{$MOD.LBL_NOTIFY}">'
+                );
+            $this->dv->defs['templateMeta']['form']['buttons'][] = 'EDIT';
+            $this->dv->defs['templateMeta']['form']['buttons'][] = 'DELETE';
         }
 
-        return false;
+        parent::display();
     }
-
-    function notifyUsers() {
-        global $db, $current_user;
-
-        $users = array();
-
-        $sql = "SELECT
-                    u.id,
-                    CONCAT(u.first_name, ' ', u.last_name) AS fullname,
-                    ea.email_address,
-                    (SELECT value FROM config WHERE name='fromaddress') AS from_email,
-                    (SELECT value FROM config WHERE name='fromname') AS from_name
-                FROM users u
-                JOIN email_addr_bean_rel eabr ON eabr.bean_id = u.id AND eabr.deleted = 0
-                JOIN email_addresses ea ON eabr.email_address_id = ea.id AND ea.deleted = 0";
-        // $GLOBALS['log']->fatal("SQL: $sql");
-        $result = $db->query($sql);
-        $cnt=0;
-        while ($row = $db->fetchByAssoc($result)) {
-            $users['user_id'][$cnt] = $row['id'];
-            $users['email']['name'][$cnt] = $row['fullname'];
-            $users['email']['address'][$cnt] = $row['email_address'];
-            $users['email']['from_name']  = $row['from_name'];
-            $users['email']['from_email'] = $row['from_email'];
-            $cnt++;
-        }
-
-        return $users;
-    }
-	
 }
