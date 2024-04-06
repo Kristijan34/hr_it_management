@@ -85,12 +85,15 @@ class hr_Employee_absences extends Basic
                     CONCAT(u.first_name, ' ', u.last_name) AS fullname,
                     ea.email_address,
                     (SELECT value FROM config WHERE name='fromaddress') AS from_email,
-                    (SELECT value FROM config WHERE name='fromname') AS from_name
+                    (SELECT value FROM config WHERE name='fromname') AS from_name,
+                    r.name
                 FROM hr_position_management pm
                 JOIN email_addr_bean_rel eabr ON eabr.bean_id = pm.user_id AND eabr.deleted = 0
                 JOIN email_addresses ea ON eabr.email_address_id = ea.id AND ea.deleted = 0
                 JOIN users u ON u.id = pm.user_id
-                JOIN acl_roles ar on pm.approval_role_id = ar.id";
+                JOIN acl_roles ar on pm.approval_role_id = ar.id
+                JOIN hr_regions r on pm.region_id = r.id 
+                WHERE pm.region_id = (SELECT region_id from hr_position_management where user_id = '{$current_user->id}')";
         // $GLOBALS['log']->fatal("SQL: $sql");
         $result = $db->query($sql);
         $cnt=0;

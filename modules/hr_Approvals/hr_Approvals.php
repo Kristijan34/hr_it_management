@@ -78,5 +78,37 @@ class hr_Approvals extends Basic
 
         return false;
     }
-	
+
+    public function checkEntityApprovalStatus($approval_id)
+    {
+        global $db;
+
+        $sql = "SELECT
+                a.entity_id,
+                a.entity_type,
+                (
+                    SELECT COUNT(*)
+                    FROM hr_approvals
+                    WHERE entity_id = a.entity_id
+                    AND status ='approved'
+                ) AS cnt
+                FROM
+                    hr_approvals a
+                    WHERE
+                    a.entity_id = 
+                    (
+                        SELECT entity_id
+                        FROM hr_approvals
+                        WHERE id = '{$approval_id}'
+                    ) LIMIT 1";
+
+        $result = $db->query($sql);
+        $row = $db->fetchByAssoc($result);
+
+        return array(
+            'record_id' => $row['entity_id'],
+            'table_name' => $row['entity_type'],
+            'cnt' => $row['cnt']
+        );
+    }
 }

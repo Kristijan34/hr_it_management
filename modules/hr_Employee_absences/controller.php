@@ -8,7 +8,7 @@ class hr_Employee_absencesController extends SugarController {
     }
 
     function action_detailview() {
-       // clearTplCache();
+        clearTplCache();
         $this->view = 'detail';
     }
 
