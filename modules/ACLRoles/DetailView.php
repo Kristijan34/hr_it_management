@@ -55,7 +55,17 @@ if (!empty($names)) {
     $tdWidth = 100 / count($names);
 }
 $sugar_smarty->assign('ROLE', $role->toArray());
-$sugar_smarty->assign('CATEGORIES', $categories);
+
+$customModules = [];
+
+foreach ($categories as $moduleName => $moduleData) {
+    // Check if module name starts with "hr" or "Accounts"
+    if (strpos($moduleName, 'hr_') === 0 || $moduleName == 'Accounts') {
+        $customModules[$moduleName] = $moduleData;
+    }
+}
+
+$sugar_smarty->assign('CATEGORIES', $customModules);
 $sugar_smarty->assign('TDWIDTH', $tdWidth);
 $sugar_smarty->assign('ACTION_NAMES', $names);
 
