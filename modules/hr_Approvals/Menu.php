@@ -43,10 +43,10 @@
 }
 
 global $mod_strings, $app_strings, $sugar_config;
- 
-if(ACLController::checkAccess('hr_Approvals', 'edit', true)){
-    $module_menu[]=array('index.php?module=hr_Approvals&action=EditView&return_module=hr_Approvals&return_action=DetailView', $mod_strings['LNK_NEW_RECORD'], 'Add', 'hr_Approvals');
-}
-if(ACLController::checkAccess('hr_Approvals', 'list', true)){
-    $module_menu[]=array('index.php?module=hr_Approvals&action=index&return_module=hr_Approvals&return_action=DetailView', $mod_strings['LNK_LIST'],'View', 'hr_Approvals');
-}
+//
+//if(ACLController::checkAccess('hr_Approvals', 'edit', true)){
+//    $module_menu[]=array('index.php?module=hr_Approvals&action=EditView&return_module=hr_Approvals&return_action=DetailView', $mod_strings['LNK_NEW_RECORD'], 'Add', 'hr_Approvals');
+//}
+//if(ACLController::checkAccess('hr_Approvals', 'list', true)){
+//    $module_menu[]=array('index.php?module=hr_Approvals&action=index&return_module=hr_Approvals&return_action=DetailView', $mod_strings['LNK_LIST'],'View', 'hr_Approvals');
+//}
