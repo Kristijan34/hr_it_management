@@ -74,6 +74,8 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_EMPLOYEE_BENEFITS_SUBPANEL_TITLE' => 'Employee Benefits',
   'LBL_NEW_FORM_TITLE' => 'New Employee Benefits',
+    'LBL_VALID_FROM' => 'Valid from',
+    'LBL_VALID_TO' => 'Valid to',
     'LBL_PROVIDER' => 'Provider/Company',
     'LBL_STATUS' => 'Benefit Status',
     'LBL_NOTIFY' => 'Notify Users',
@@ -82,11 +84,11 @@ $mod_strings = array (
             A new benefit has been made available:<br/><br/>
 <b>Benefit Overview:</b><br/>
 - <b>What:</b> $description <br/>
-- <b>Provider:</b> $provider <br/><br/>
+- <b>Provider:</b> $provider <br/>
+- <b>Validity period:</b> $valid_from - $valid_to <br/><br/>
 If you have any questions or need further information, please don\'t hesitate to contact us.<br/><br/>
 Best regards,<br/>
 $current_user<br/>
-HR Manager<br/>
 Company Name',
 
 );

@@ -36,6 +36,8 @@ class hr_Employee_benefitsController extends SugarController {
         $benefit_name = $_REQUEST['benefit_name'];
         $provider = $_REQUEST['provider'];
         $description = $_REQUEST['description'];
+        $valid_from = $_REQUEST['valid_from'];
+        $valid_to = $_REQUEST['valid_to'];
 
         $subject = $mod_strings['LBL_EMPLOYEE_DISCOUNT'];
         $body = $mod_strings['LBL_EMAIL_BENEFIT_BODY'];
@@ -43,6 +45,8 @@ class hr_Employee_benefitsController extends SugarController {
         $body = str_replace('$provider', $provider, $body);
         $body = str_replace('$description', $description, $body);
         $body = str_replace('$current_user', $current_user->name, $body);
+        $body = str_replace('$valid_from', $valid_from, $body);
+        $body = str_replace('$valid_to', $valid_to, $body);
 
         $emailObj = new Email();
         $defaults = $emailObj->getSystemDefaultEmail();

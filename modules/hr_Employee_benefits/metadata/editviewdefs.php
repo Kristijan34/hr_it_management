@@ -64,7 +64,19 @@ $viewdefs[$module_name]['EditView'] = array(
                     'label' => 'LBL_PROVIDER',
                 ),
             ),
+
             1 => array(
+                0 => array(
+                    'name' => 'valid_from',
+                    'label' => 'LBL_VALID_FROM',
+                ),
+                1 => array(
+                    'name' => 'valid_to',
+                    'label' => 'LBL_VALID_TO',
+                )
+
+            ),
+            2 => array(
                 0 => array(
                     'name' => 'status',
                     'label' => 'LBL_STATUS',
@@ -74,9 +86,7 @@ $viewdefs[$module_name]['EditView'] = array(
                     'label' => 'LBL_DESCRIPTION',
                 ),
             ),
-            2 => array(
 
-            )
         ),
 
     ),

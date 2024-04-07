@@ -105,6 +105,36 @@ $dictionary['hr_Employee_benefits'] = array(
             'importable' => 'true',
             'audited' => true,
         ),
+        'valid_from' =>
+            array (
+                'required' => true,
+                'name' => 'valid_from',
+                'vname' => 'LBL_VALID_FROM',
+                'type' => 'date',
+                'audited' => true,
+                'comment' => 'Starting date of absence',
+                'validation' =>
+                    array (
+                        'type' => 'isbefore',
+                        'compareto' => 'valid_to',
+                    ),
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true
+            ),
+        'valid_to' =>
+            array (
+                'name' => 'valid_to',
+                'vname' => 'LBL_VALID_TO',
+                'type' => 'date',
+                'audited' => true,
+                'comment' => 'Ending date of absence',
+                'importable' => 'required',
+                'required' => true,
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true
+            ),
 
     ),
     'relationships' => array (

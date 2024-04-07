@@ -12,6 +12,8 @@ $(document).ready(function () {
         var benefit_name = $('#name').text();
         var provider = $('#provider').text();
         var description = $('#description').text();
+        var valid_from = $('#valid_from').text();
+        var valid_to = $('#valid_to').text();
 
 
 
@@ -24,7 +26,9 @@ $(document).ready(function () {
                 record: record,
                 benefit_name: benefit_name,
                 provider: provider,
-                description: description
+                description: description,
+                valid_from: valid_from,
+                valid_to: valid_to
             },
             success: function(data) {
                 window.document.location = 'index.php?module=hr_Employee_benefits&action=DetailView&record=' + record;

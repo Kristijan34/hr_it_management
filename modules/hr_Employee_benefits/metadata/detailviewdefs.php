@@ -72,6 +72,10 @@ $viewdefs[$module_name]['DetailView'] = array(
                         'status',
                         'description',
                     ),
+                    array(
+                        'valid_from',
+                        'valid_to',
+                    )
                 )
         )
 );

@@ -50,12 +50,29 @@ $listViewDefs[$module_name] = array(
         'default' => true,
         'link' => true
     ),
-    'ASSIGNED_USER_NAME' => array(
-        'width' => '9',
-        'label' => 'LBL_ASSIGNED_TO_NAME',
-        'module' => 'Employees',
-        'id' => 'ASSIGNED_USER_ID',
-        'default' => true
+    'PROVIDER' => array(
+        'width' => '32',
+        'label' => 'LBL_PROVIDER',
+        'default' => true,
+        'link' => false
+    ),
+    'STATUS' => array(
+        'width' => '32',
+        'label' => 'LBL_STATUS',
+        'default' => true,
+        'link' => false
+    ),
+    'VALID_FROM' => array(
+        'width' => '32',
+        'label' => 'LBL_VALID_FROM',
+        'default' => true,
+        'link' => false
+    ),
+    'VALID_TO' => array(
+        'width' => '32',
+        'label' => 'LBL_VALID_TO',
+        'default' => true,
+        'link' => false
     ),
 
 );
