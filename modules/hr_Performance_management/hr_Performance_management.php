@@ -74,5 +74,44 @@ class hr_Performance_management extends Basic
 
         return false;
     }
+
+    function getUserPosition(){
+        global $db;
+
+        $res = array();
+        $sql = "select
+                    pm.id,
+                    pm.user_id,
+                    CONCAT(u.first_name, ' ', u.last_name) AS fullname,
+                    pm.region_id,
+                    r.name as region_name,
+                    pm.store_id,
+                    s.name as store_name,
+                    pm.role_id,
+                    ar.name as role_name
+                from hr_position_management pm
+                join hr_regions r on pm.region_id = r.id
+                join hr_stores s on pm.store_id = s.id
+                join acl_roles ar on pm.role_id = ar.id
+                join users u on pm.user_id = u.id
+                where user_id = '{$_REQUEST['user_id']}'";
+        $result = $db->query($sql);
+        $row = $db->fetchByAssoc($result);
+
+        $GLOBALS['log']->fatal($sql);
+        if (isset($row['id']) && $row['id'] != '') {
+            $res['user_id'] = $row['user_id'];
+            $res['fullname'] = $row['fullname'];
+            $res['region_id'] = $row['region_id'];
+            $res['region_name'] = $row['region_name'];
+            $res['store_id'] = $row['store_id'];
+            $res['store_name'] = $row['store_name'];
+            $res['role_id'] = $row['role_id'];
+            $res['role_name'] = $row['role_name'];
+        }
+
+        $GLOBALS['log']->fatal('RES ' . print_r($res,true));
+        return $res;
+    }
 	
 }

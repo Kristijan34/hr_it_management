@@ -50,7 +50,7 @@ $mod_strings = array (
   'LBL_CREATED' => 'Created By',
   'LBL_DESCRIPTION' => 'Description',
   'LBL_DELETED' => 'Deleted',
-  'LBL_NAME' => 'Name',
+  'LBL_NAME' => 'Employee',
   'LBL_CREATED_USER' => 'Created by User',
   'LBL_MODIFIED_USER' => 'Modified by User',
   'LBL_LIST_NAME' => 'Name',
@@ -74,4 +74,12 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_PERFORMANCE_MANAGEMENT_SUBPANEL_TITLE' => 'Performance Management',
   'LBL_NEW_FORM_TITLE' => 'New Performance Management',
+    'LBL_REGION' => 'Region',
+    'LBL_STORE' => 'Store',
+    'LBL_ROLE' => 'Role',
+    'LBL_STATUS' => 'Status',
+    'LBL_TARGET_DATE' => 'Target Completion Date',
+    'LBL_GOAL' => 'Goal',
+    'LBL_USER_NOT_IN_POSITION_MANAGEMENT' => 'Please first enter the user in the Position Management Module!'
+
 );

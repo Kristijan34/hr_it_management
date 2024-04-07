@@ -13,3 +13,13 @@ $app_list_strings['approval_status_dom']=array (
   'rejected' => 'Rejected',
   'in_review' => 'In review',
 );
+$app_list_strings['performance_status_dom']=array (
+  'not_started' => 'Not Started',
+  'in_progress' => 'In Progress',
+  'on_hold' => 'On Hold',
+  'revised' => 'Revised',
+  'achived' => 'Achived',
+  'achieved' => 'Achieved',
+  'canceled' => 'Canceled',
+  'not_achieved' => 'Not Achieved',
+);

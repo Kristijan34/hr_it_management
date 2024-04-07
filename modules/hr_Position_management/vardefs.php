@@ -190,7 +190,7 @@ $dictionary['hr_Position_management'] = array(
             ),
         'user_role' =>
             array(
-                'name' => 'position_user',
+                'name' => 'user_role',
                 'type' => 'link',
                 'vname' => 'LBL_NAME',
                 'relationship' => 'users_roles',
