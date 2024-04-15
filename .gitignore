@@ -5,3 +5,6 @@ cache/
 /modules/AOD_Index
 /custom/blowfish
 modules/AOD_Index/Index/
+exports/
+upload/documents/
+lib/spout-3.3.0/

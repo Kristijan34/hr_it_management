@@ -47,6 +47,6 @@ global $mod_strings, $app_strings, $sugar_config;
 if(ACLController::checkAccess('hr_Reports', 'edit', true)){
     $module_menu[]=array('index.php?module=hr_Reports&action=EditView&return_module=hr_Reports&return_action=DetailView', $mod_strings['LNK_NEW_RECORD'], 'Add', 'hr_Reports');
 }
-if(ACLController::checkAccess('hr_Reports', 'list', true)){
-    $module_menu[]=array('index.php?module=hr_Reports&action=index&return_module=hr_Reports&return_action=DetailView', $mod_strings['LNK_LIST'],'View', 'hr_Reports');
-}
+//if(ACLController::checkAccess('hr_Reports', 'list', true)){
+//    $module_menu[]=array('index.php?module=hr_Reports&action=index&return_module=hr_Reports&return_action=DetailView', $mod_strings['LNK_LIST'],'View', 'hr_Reports');
+//}

@@ -44,6 +44,51 @@ $dictionary['hr_Reports'] = array(
     'inline_edit' => true,
     'duplicate_merge' => true,
     'fields' => array (
+        'from_month' =>
+            array (
+                'name' => 'from_month',
+                'vname' => 'LBL_FROM_MONTH',
+                'type' => 'date',
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true,
+                'source' => 'non-db'
+            ),
+
+        'to_month' =>
+            array (
+                'name' => 'to_month',
+                'vname' => 'LBL_TO_MONTH',
+                'type' => 'date',
+                'enable_range_search' => true,
+                'options' => 'date_range_search_dom',
+                'custom_readonly' => true,
+                'source' => 'non-db'
+            ),
+        'region' =>
+            array(
+                'name' => 'region',
+                'type' => 'enum',
+                'vname' => 'LBL_REGION',
+                'function' => 'getRegions',
+                'source' => 'non-db'
+            ),
+        'store' =>
+            array(
+                'name' => 'store',
+                'type' => 'enum',
+                'vname' => 'LBL_STORE',
+                'function' => 'getStores',
+                'source' => 'non-db'
+            ),
+        'user' =>
+            array(
+                'name' => 'user',
+                'type' => 'enum',
+                'vname' => 'LBL_USER',
+                'function' => 'getUsers',
+                'source' => 'non-db'
+            ),
 ),
     'relationships' => array (
 ),

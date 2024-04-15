@@ -6076,3 +6076,19 @@ function isUserHRManager()
     return $foundHRManager;
 
 }
+
+function getUsers(){
+    global $db;
+    $empl_arr = array('' => '');
+    $sql = "SELECT
+    id,
+    CONCAT(first_name, ' ', last_name) AS full_name
+    FROM users WHERE deleted = 0 order by first_name ASC";
+    $result = $db->query($sql);
+
+    while ($row = $db->fetchByAssoc($result)) {
+        $empl_arr[$row['id']] = $row['full_name'];
+    }
+
+    return $empl_arr;
+}

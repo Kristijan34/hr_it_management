@@ -50,11 +50,11 @@ $listViewDefs[$module_name] = array(
         'default' => true,
         'link' => true
     ),
-    'ASSIGNED_USER_NAME' => array(
+    'APPROVER_NAME' => array(
         'width' => '9',
-        'label' => 'LBL_ASSIGNED_TO_NAME',
+        'label' => 'LBL_APPROVER_ID',
         'module' => 'Employees',
-        'id' => 'ASSIGNED_USER_ID',
+        'id' => 'APPROVER_ID',
         'default' => true
     ),
 

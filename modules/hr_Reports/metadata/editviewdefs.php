@@ -41,26 +41,72 @@
 $module_name = 'hr_Reports';
 $viewdefs[$module_name]['EditView'] = array(
     'templateMeta' => array(
+        'form' => array(
+
+            'buttons' => array(
+                0 => '<input type="hidden" name="config" value="{$fields.config.value}">',
+            ),
+        ),
         'maxColumns' => '2',
         'widths' => array(
             array('label' => '10', 'field' => '30'),
             array('label' => '10', 'field' => '30')
         ),
+        'includes' =>
+            array (
+                0 => array('file'=>'modules/hr_Reports/javascript/report.js'),
+                1 => array(
+                    'file' => 'cache/include/javascript/sugar_grp_yui_widgets.js',
+                ),
+                2=> array(
+                    'file'=>'include/javascript/yui/build/container/container.js',
+                )
+            ),
     ),
 
     'panels' => array(
-        'default' => array(
-
-            array(
-                'name',
-                'assigned_user_name',
+        'lbl_create_report' => array(
+            0 => array(
+                0 => array(
+                    'name' => 'from_month',
+                    'label' => 'LBL_FROM_MONTH'
+                ),
+                1 => array(
+                    'name' => 'to_month',
+                    'label' => 'LBL_TO_MONTH',
+                ),
             ),
 
-            array(
-                'description',
+            1 => array(
+                0 => array(
+                    'name' => 'region',
+                    'label' => 'LBL_REGION'
+                ),
+
             ),
+            2 => array(
+                0 => array(
+                    'name' => 'store',
+                    'label' => 'LBL_STORE'
+                ),
+            ),
+            3 => array(
+                0 => array(
+                    'name' => 'user',
+                    'label' => 'LBL_USER'
+                ),
+            )
+
         ),
 
     ),
 
+);
+global $mod_strings;
+
+$buttonCreateReport = $mod_strings['LBL_CREATE_REPORT_BUTTON'];
+
+$viewdefs[$module_name]['EditView']['templateMeta']['form']['buttons'][0] = array (
+    'customCode' => "<input title=\"Create Report\" accesskey=\"a\" class=\"button primary\" 
+onclick=\"var _form = document.getElementById('EditView'); createReport(1,30)\" type=\"button\" name=\"button\" value=\"$buttonCreateReport\" id=\"create_report\">",
 );

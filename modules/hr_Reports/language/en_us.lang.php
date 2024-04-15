@@ -74,4 +74,12 @@ $mod_strings = array (
   'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
   'LBL_HR_REPORTS_SUBPANEL_TITLE' => 'Reports',
   'LBL_NEW_FORM_TITLE' => 'New Reports',
+    'LBL_FROM_MONTH' => 'From',
+    'LBL_TO_MONTH' => 'To',
+    'LBL_REGION' => 'Region',
+    'LBL_STORE' => 'Store',
+    'LBL_USER' => 'Employee',
+    'LBL_CREATE_REPORT' => 'Detailed Reports',
+    'LBL_CREATE_REPORT_BUTTON' => 'Create Report',
+    'LBL_NO_REPORTS' => 'There are no reports'
 );

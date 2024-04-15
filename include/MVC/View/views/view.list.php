@@ -377,6 +377,13 @@ class ViewList extends SugarView
     public function preDisplay()
     {
         $this->lv = new ListViewSmarty();
+        $this->lv->show_action_dropdown=false;
+        $this->lv->multiSelect=false;
+        $this->lv->showMassupdateFields=false;
+        $this->lv->mergeduplicates=false;
+        $this->lv->select=false;
+        $this->lv->quickViewLinks=false;
+        $this->lv->delete=false;
     }
 
     /**

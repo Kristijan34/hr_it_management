@@ -130,6 +130,11 @@ EOQ;
 
     public function mass_assign($event, $arguments)
     {
+        global $current_user;
+        if(is_admin($current_user)){
+            echo " ";
+            return true;
+        }
         $action = null;
         if (isset($_REQUEST['action'])) {
             $action = $_REQUEST['action'];

@@ -93,7 +93,8 @@ class hr_Employee_absences extends Basic
                 JOIN users u ON u.id = pm.user_id
                 JOIN acl_roles ar on pm.approval_role_id = ar.id
                 JOIN hr_regions r on pm.region_id = r.id 
-                WHERE pm.region_id = (SELECT region_id from hr_position_management where user_id = '{$current_user->id}')";
+                WHERE pm.region_id = (SELECT region_id from hr_position_management where user_id = '{$current_user->id}')
+                AND pm.user_id NOT IN ('{$current_user->id}')";
         // $GLOBALS['log']->fatal("SQL: $sql");
         $result = $db->query($sql);
         $cnt=0;
