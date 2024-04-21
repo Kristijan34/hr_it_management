@@ -76,7 +76,7 @@ class hr_Reports extends Basic
     }
 
     function getEmployeeTargetPerformance($request){
-        global $db,$mod_strings;
+        global $db,$mod_strings,$app_list_strings;
 
         $page = isset($request['page']) ? intval($request['page']) : 1;
         $perPage = isset($request['perPage']) ? intval($request['perPage']) : 30;
@@ -121,7 +121,7 @@ class hr_Reports extends Basic
             $table .= '<td>' . $row['store_name'] . '</td>';
             $table .= '<td>' . $row['role_name'] . '</td>';
             $table .= '<td>' . $row['goal'] . '</td>';
-            $table .= '<td>' . $row['status'] . '</td>';
+            $table .= '<td>' . $app_list_strings['performance_status_dom'][$row['status']] . '</td>';
             $table .= '<td></td>';
             $table .= '</tr>';
         }

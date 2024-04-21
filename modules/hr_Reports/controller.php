@@ -28,7 +28,7 @@ class hr_ReportsController extends SugarController {
     }
 
     function action_exportToExcel() {
-        global $mod_strings;
+        global $mod_strings,$app_list_strings;
         $fromDate = (isset($_REQUEST['fromDate']) ? $_REQUEST['fromDate'] : '');
         $toDate = (isset($_REQUEST['toDate']) ? $_REQUEST['toDate'] : '');
         $region = (isset($_REQUEST['region']) ? $_REQUEST['region'] : '');
@@ -148,7 +148,7 @@ class hr_ReportsController extends SugarController {
                 $et['store_name'],
                 $et['role_name'],
                 $et['goal'],
-                $et['status'],
+                $app_list_strings['performance_status_dom'][$et['status']],
                 ]);
             $row->setStyle($rowStyle);
             $writer->addRow($row);

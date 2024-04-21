@@ -18,7 +18,6 @@ $app_list_strings['performance_status_dom']=array (
   'in_progress' => 'In Progress',
   'on_hold' => 'On Hold',
   'revised' => 'Revised',
-  'achived' => 'Achived',
   'achieved' => 'Achieved',
   'canceled' => 'Canceled',
   'not_achieved' => 'Not Achieved',
