@@ -158,6 +158,28 @@ class hr_ReportsController extends SugarController {
         exit();
     }
 
+    function action_getAllStoresByRegion()
+    {
+        $stores_by_region = $this->bean->getAllStoresByRegion();
+
+        echo json_encode($stores_by_region);
+        exit();
+    }
+
+    function action_getEmployeesByRegion() {
+        $empl_by_reg = $this->bean->getEmployeesByRegion();
+
+        echo json_encode($empl_by_reg);
+        exit();
+    }
+
+    function action_getEmployeesByStore() {
+        $empl_by_store = $this->bean->getEmployeesByStore();
+
+        echo json_encode($empl_by_store);
+        exit();
+    }
+
 
 }
 

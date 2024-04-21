@@ -135,6 +135,10 @@ EOQ;
             echo " ";
             return true;
         }
+        else{
+            echo "";
+            return true;
+        }
         $action = null;
         if (isset($_REQUEST['action'])) {
             $action = $_REQUEST['action'];

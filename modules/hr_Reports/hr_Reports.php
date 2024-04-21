@@ -293,5 +293,68 @@ WHERE
 
         return $pagination;
     }
+
+    function getAllStoresByRegion(){
+        global $db;
+        $stores_by_reg = array();
+
+        $sql = "SELECT
+    st.id,
+    st.name,
+    st.region_id
+FROM hr_stores st
+         JOIN hr_regions reg ON st.region_id = reg.id AND st.deleted = 0
+ORDER BY st.name ASC;";
+        $res = $db->query($sql);
+        while ($row = $db->fetchByAssoc($res)) {
+            $stores_by_reg[$row['region_id']][$row['id']]['name'] = $row['name'];
+        }
+
+        return $stores_by_reg;
+    }
+
+    function getEmployeesByRegion(){
+        global $db;
+        $empl_by_reg_arr = array();
+
+        $sql = "SELECT
+    u.id,
+    CONCAT(u.first_name, ' ', u.last_name) AS full_name,
+    pm.region_id
+FROM users u
+    JOIN hr_position_management pm ON u.id = pm.user_id WHERE u.deleted = 0
+ORDER BY u.first_name ASC";
+
+        $result = $db->query($sql);
+
+        while ($row = $db->fetchByAssoc($result)) {
+            $empl_by_reg_arr[$row['region_id']][$row['id']]['name'] = $row['full_name'];
+        }
+
+        return $empl_by_reg_arr;
+
+    }
+
+    function getEmployeesByStore(){
+        global $db;
+        $empl_by_store_arr = array();
+
+        $sql = "SELECT
+    u.id,
+    CONCAT(u.first_name, ' ', u.last_name) AS full_name,
+    pm.store_id
+FROM users u
+         JOIN hr_position_management pm ON u.id = pm.user_id WHERE u.deleted = 0
+ORDER BY u.first_name ASC;";
+
+        $result = $db->query($sql);
+
+        while ($row = $db->fetchByAssoc($result)) {
+            $empl_by_store_arr[$row['store_id']][$row['id']]['name'] = $row['full_name'];
+        }
+
+        return $empl_by_store_arr;
+
+    }
 	
 }

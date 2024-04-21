@@ -46,6 +46,7 @@ $dictionary['hr_Reports'] = array(
     'fields' => array (
         'from_month' =>
             array (
+                'required' => true,
                 'name' => 'from_month',
                 'vname' => 'LBL_FROM_MONTH',
                 'type' => 'date',
@@ -57,6 +58,7 @@ $dictionary['hr_Reports'] = array(
 
         'to_month' =>
             array (
+                'required' => true,
                 'name' => 'to_month',
                 'vname' => 'LBL_TO_MONTH',
                 'type' => 'date',

@@ -2467,4 +2467,72 @@ EOQ;
 
         return $sameUser || is_admin($current_user);
     }
+
+    function isAllowedAction($action, $form, $adminAllow = true){
+        global $current_user;
+        $user_id = $current_user->id;
+        $role_name = ACLRole::getUserRoleNames($user_id);
+        $role_string = implode(',', $role_name);
+        if($current_user->isAdmin() && $adminAllow){
+            return true;
+        }
+        else if(empty($role_name)){
+            return false;
+        }
+        else{
+            $sql = "SELECT COUNT(1) cnt
+                    FROM user_form_permissions 
+                    WHERE allow_roles LIKE '%{$role_string};%' 
+                        AND action = '".$action."'
+                        AND form = '".$form."' ";//die($sql);
+        }
+
+        $result = $this->db->query($sql);
+        $row = $this->db->fetchByAssoc($result);//print_r($row);die;//
+        if($row['cnt'] != '0'){
+            return true;
+        }
+        return false;
+    }
+
+    function getCurrentUserRegion()
+    {
+        global $current_user;
+        $sql = "SELECT region_id from hr_position_management where user_id = '{$current_user->id}'";
+        $result = $this->db->query($sql);
+        $row = $this->db->fetchByAssoc($result);
+
+        return $row['region_id'];
+
+    }
+
+    function getUsersFromRegion()
+    {
+        global $current_user;
+        if(!isset($_SESSION['selected_region_id']) && !$current_user->isAllowedAction('Position Management', 'List View')){
+            $region = $this->getCurrentUserRegion();
+        }
+        else{
+            $region = $_SESSION['selected_region_id'];
+        }
+
+        $GLOBALS['log']->fatal('region ' . print_r($region,true));
+
+        $sql = "SELECT user_id FROM hr_position_management WHERE region_id = '{$region}' AND deleted = 0";
+        $result = $this->db->query($sql);
+        $GLOBALS['log']->fatal('KRIS ' . print_r($sql,true));
+
+        $user_ids = array();
+
+        while($row = $this->db->fetchByAssoc($result)){
+            $user_ids[] = "'" . $row['user_id'] . "'";
+        }
+
+        $imploded_user_ids = implode(', ', $user_ids);
+
+
+        return $imploded_user_ids;
+    }
+
+
 }

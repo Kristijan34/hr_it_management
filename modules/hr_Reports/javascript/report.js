@@ -1,13 +1,88 @@
 var loadingPanelMsg = '';
-
+var st_by_region = {};
+var empl_by_region = {};
+var empl_by_store = {};
 
 showLoadingPanelMsg('Loading page, please wait...');
 
 $(document).ready(function () {
 
-
+    getAllStoresByRegion();
+    getEmployeesByRegion();
+    getEmployeesByStore();
     setTimeout(hideLoadingPanelMsg,2000);
+    $('#store').attr('disabled',true);
+    $('#user').attr('disabled',true);
+    $('#region').change(function (){
+        if(this.value != ''){
+            storeByRegion(this.value);
+            $('#store').attr('disabled',false);
+            if($('#store').val() == ''){
+                var emp_by_region = empl_by_region[this.value];
+                $('#user').empty();
+
+                var emptyOptionEmpl2 = $('<option>').val('').text('');
+                $('#user').append(emptyOptionEmpl2);
+                $.each(emp_by_region, function(user_id, userData) {
+                    var name = userData.name;
+                    var option = $('<option>').attr('label', name).val(user_id).text(name);
+                    $('#user').append(option);
+                });
+                $('#user').attr('disabled',false);
+            }
+        }
+        else {
+            $('#store').attr('disabled',true);
+            $('#store').val('');
+        }
+    });
+
+    $('#store').change(function (){
+        if(this.value != ''){
+            var empl_by_str = empl_by_store[this.value];
+            $('#user').empty();
+            var emptyOptionEmpl1 = $('<option>').val('').text('');
+            $('#user').append(emptyOptionEmpl1);
+            $.each(empl_by_str, function(user_id, userData) {
+                var name = userData.name;
+                var option = $('<option>').attr('label', name).val(user_id).text(name);
+                $('#user').append(option);
+            });
+        }
+        else{
+            if($('#region').val() == ''){
+                $('#user').attr('disabled',true);
+                $('#user').val('');
+            }
+            else{
+                var emp_by_region = empl_by_region[$('#region').val()];
+                $('#user').empty();
+
+                var emptyOptionEmpl2 = $('<option>').val('').text('');
+                $('#user').append(emptyOptionEmpl2);
+                $.each(emp_by_region, function(user_id, userData) {
+                    var name = userData.name;
+                    var option = $('<option>').attr('label', name).val(user_id).text(name);
+                    $('#user').append(option);
+                });
+            }
+        }
+    });
 });
+
+function storeByRegion(region_id){
+    $('#store').empty();
+    var emptyOption = $('<option>').val('').text('');
+    $('#store').append(emptyOption);
+    var store = st_by_region[region_id];
+
+    $.each(store, function(stID, stData){
+        var name = stData.name;
+        var option = $('<option>').attr('label', name).val(stID).text(name);
+        $('#store').append(option);
+
+    });
+}
 
 
 function createReport(page, perPage){
@@ -39,7 +114,6 @@ function createReport(page, perPage){
         },
         success: function (data) {
 
-            console.log(data);
             if (data.hasOwnProperty('result') && data.result.rows != '') {
                 // Update the table container with the received table HTML
                 if ($('#employee_table').length > 0) {
@@ -47,7 +121,6 @@ function createReport(page, perPage){
                 } else {
                     $('#content').append(data.result.table);
                 }
-
 
                 // Remove the existing pagination footer, if any
                 $('.pagination-footer').remove();
@@ -57,10 +130,10 @@ function createReport(page, perPage){
                 setTimeout(hideLoadingPanelMsg,2000);
             } else {
 
-                alert('NO REPORTS');
+                alert('There are no reports!');
                 // message = SUGAR.language.get('hr_Reports', 'LBL_NO_REPORTS');
                 // dialog(message);
-                // setTimeout(hideLoadingPanelMsg,2000);
+                 setTimeout(hideLoadingPanelMsg,200);
             }
         }
     });
@@ -132,4 +205,49 @@ function exportToExcel() {
             // window.document.location = 'index.php?module=itg_Forecasts&action=index';
         }
     });
+}
+
+
+function getAllStoresByRegion(){
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        url: 'index.php?module=hr_Reports&action=getAllStoresByRegion',
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            st_by_region = data;
+
+        }
+    });
+}
+
+function getEmployeesByRegion(){
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        url: 'index.php?module=hr_Reports&action=getEmployeesByRegion',
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            empl_by_region = data;
+        }
+    });
+}
+
+function getEmployeesByStore(){
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        url: 'index.php?module=hr_Reports&action=getEmployeesByStore',
+        dataType: 'json',
+        data: {},
+        success: function(data) {
+            empl_by_store = data;
+        }
+    });
+
 }

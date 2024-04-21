@@ -128,5 +128,15 @@ class hr_Employee_absences extends Basic
         $db->query($sql);
     }
 
+    function create_new_list_query($order_by, $where, $filter=array(), $params=array(), $show_deleted = 0, $join_type='', $return_array = false, $parentbean=null, $singleSelect = false, $ifListForExport = false) {
+        global $current_user;
+        $sql_arr = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect, $ifListForExport);
+           $getUsersFromRegion = $current_user->getUsersFromRegion();
+            $sql_arr['where'].= " and hr_employee_absences.user_id in ($getUsersFromRegion)";
+        $GLOBALS['log']->fatal('$sql_arr ' . print_r($sql_arr,true));
+
+        return $sql_arr;
+    }
+
 
 }
