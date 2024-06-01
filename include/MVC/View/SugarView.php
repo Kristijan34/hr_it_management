@@ -575,6 +575,12 @@ class SugarView
 // Retrieve the selected region from the session
             $selectedRegion = isset($_SESSION['selected_region_name']) ? $_SESSION['selected_region_name'] : '';
 // Assign the selected region to the template
+            if(!$current_user->isAdmin()){
+                $_SESSION['selected_region_name'] = $current_user->getCurrentUserRegionName();
+                $selectedRegion = $current_user->getCurrentUserRegionName();
+            }
+            $GLOBALS['log']->fatal('selected ' . $selectedRegion);
+
             $ss->assign('selectedRegion', $selectedRegion);
 
             // get the last viewed records

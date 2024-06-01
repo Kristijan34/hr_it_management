@@ -141,18 +141,18 @@ class hr_Position_management extends Basic
         global $current_user;
         $sql_arr = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect, $ifListForExport);
 
+        if(!$current_user->isAdmin()){
         if(!isset($_SESSION['selected_region_id'])){
             $region = $current_user->getCurrentUserRegion();
-            $GLOBALS['log']->fatal('$region ' . print_r($region,true));
+            //$GLOBALS['log']->fatal('$region ' . print_r($region,true));
         }
         else{
-            $GLOBALS['log']->fatal('$regiELSEon ');
             $region = $_SESSION['selected_region_id'];
         }
-        if($current_user->isAllowedAction('Position Management', 'List View')){
+        //if($current_user->isAllowedAction('Position Management', 'List View')){
             $sql_arr['where'].= " AND hr_position_management.region_id = '{$region}'";
+       // }
         }
-
         return $sql_arr;
     }
 

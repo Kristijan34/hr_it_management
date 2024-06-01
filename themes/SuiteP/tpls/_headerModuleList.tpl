@@ -310,6 +310,9 @@
                 <script>
                     function selectRegion(regionId, regionName) {
                         // Perform AJAX request to save selected region ID and name in session
+                        if (document.querySelector('.dropdown-toggle').classList.contains('disabled')) {
+                            return false;
+                        }
                         var xhr = new XMLHttpRequest();
                         xhr.open('POST', 'save_region.php');
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -509,7 +512,7 @@
             <ul id="toolbar" class="toolbar">
                 {if $selectedRegion}
                     <li id="selectedRegion" class="selected-region" style="color: white; font-size: 1.1em;">
-                        <span class="selected-region-label">Selected Region:</span> {$selectedRegion}
+                        <span class="selected-region-label">Logged in User belongs in Region:</span> {$selectedRegion}
                     </li>
                 {/if}
                 <li></li>
@@ -624,22 +627,23 @@
             <ul id="toolbar" class="toolbar">
                 {if $selectedRegion}
                     <li id="selectedRegion" class="selected-region" style="color: white; font-size: 1.1em;">
-                        <span class="selected-region-label">Selected Region:</span> {$selectedRegion}
+                        <span class="selected-region-label">Region:</span> {$selectedRegion}
                     </li>
                 {/if}
-                <li></li>
+
                 <li id="quickcreatetop" class="create dropdown nav navbar-nav quickcreatetop">
-                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle {if isset($selectedRegion) && $selectedRegion !== ''}disabled{/if}" data-toggle="dropdown" aria-expanded="false">
                         Choose Region<span class="suitepicon suitepicon-action-caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         {foreach from=$REGIONS item=regionName key=regionId}
                             <li>
-                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')">{$regionName}</a>
+                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')" {if isset($selectedRegion) && $selectedRegion !== ''}disabled{/if}>{$regionName}</a>
                             </li>
                         {/foreach}
                     </ul>
                 </li>
+
                 <li>
                     <form id="searchform" class="navbar-form searchform" name='UnifiedSearch' action='index.php'
                           onsubmit='return SUGAR.unifiedSearchAdvanced.checkUsaAdvanced()'>

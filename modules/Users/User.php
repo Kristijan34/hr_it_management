@@ -2505,6 +2505,18 @@ EOQ;
         return $row['region_id'];
 
     }
+    function getCurrentUserRegionName()
+    {
+        global $current_user;
+        $sql = "SELECT r.name from
+                hr_regions r join
+                hr_position_management pm ON r.id = pm.region_id where pm.user_id = '{$current_user->id}'";
+        $result = $this->db->query($sql);
+        $row = $this->db->fetchByAssoc($result);
+
+        return $row['name'];
+
+    }
 
     function getUsersFromRegion()
     {
