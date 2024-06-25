@@ -632,13 +632,13 @@
                 {/if}
 
                 <li id="quickcreatetop" class="create dropdown nav navbar-nav quickcreatetop">
-                    <a class="dropdown-toggle {if isset($selectedRegion) && $selectedRegion !== ''}disabled{/if}" data-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle {if isset($selectedRegion) && $selectedRegion !== '' && $user_is =='dont_allow'}disabled{/if}" data-toggle="dropdown" aria-expanded="false">
                         Choose Region<span class="suitepicon suitepicon-action-caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         {foreach from=$REGIONS item=regionName key=regionId}
                             <li>
-                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')" {if isset($selectedRegion) && $selectedRegion !== ''}disabled{/if}>{$regionName}</a>
+                                <a href="#" onclick="selectRegion('{$regionId}', '{$regionName}')" {if isset($selectedRegion) && $selectedRegion !== '' && $user_is =='dont_allow'}disabled{/if}>{$regionName}</a>
                             </li>
                         {/foreach}
                     </ul>

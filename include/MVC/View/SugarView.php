@@ -571,17 +571,19 @@ class SugarView
                 $regions = $GLOBALS['cached_regions'];
             }
             $ss->assign('REGIONS',$regions);
-            //$GLOBALS['log']->fatal(print_r($regions,true));
-// Retrieve the selected region from the session
             $selectedRegion = isset($_SESSION['selected_region_name']) ? $_SESSION['selected_region_name'] : '';
-// Assign the selected region to the template
-            if(!$current_user->isAdmin()){
+            $user_id = $current_user->id;
+            $role_name = ACLRole::getUserRoleNames($user_id);
+            //$is_it =
+            $user_is = 'allow';
+            if($current_user->id != 1 && !in_array('HR Manager',$role_name)){
                 $_SESSION['selected_region_name'] = $current_user->getCurrentUserRegionName();
                 $selectedRegion = $current_user->getCurrentUserRegionName();
+                $user_is = 'dont_allow';
             }
-            $GLOBALS['log']->fatal('selected ' . $selectedRegion);
 
             $ss->assign('selectedRegion', $selectedRegion);
+            $ss->assign('user_is', $user_is);
 
             // get the last viewed records
             $favorites = BeanFactory::getBean('Favorites');

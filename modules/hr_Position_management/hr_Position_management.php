@@ -140,8 +140,10 @@ class hr_Position_management extends Basic
     function create_new_list_query($order_by, $where, $filter=array(), $params=array(), $show_deleted = 0, $join_type='', $return_array = false, $parentbean=null, $singleSelect = false, $ifListForExport = false) {
         global $current_user;
         $sql_arr = parent::create_new_list_query($order_by, $where, $filter, $params, $show_deleted, $join_type, $return_array, $parentbean, $singleSelect, $ifListForExport);
-
-        if(!$current_user->isAdmin()){
+        $user_id = $current_user->id;
+        $role_name = ACLRole::getUserRoleNames($user_id);
+        //$is_it =
+        if($current_user->id != 1 && !in_array('HR Manager',$role_name)){
         if(!isset($_SESSION['selected_region_id'])){
             $region = $current_user->getCurrentUserRegion();
             //$GLOBALS['log']->fatal('$region ' . print_r($region,true));
@@ -149,9 +151,14 @@ class hr_Position_management extends Basic
         else{
             $region = $_SESSION['selected_region_id'];
         }
-        //if($current_user->isAllowedAction('Position Management', 'List View')){
             $sql_arr['where'].= " AND hr_position_management.region_id = '{$region}'";
-       // }
+        }
+      //  }
+//
+        if(isset($_SESSION['selected_region_id'])){
+            $region = $_SESSION['selected_region_id'];
+            $sql_arr['where'].= " AND hr_position_management.region_id = '{$region}'";
+            //$GLOBALS['log']->fatal('$region ' . print_r($region,true));
         }
         return $sql_arr;
     }
